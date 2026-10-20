@@ -39,4 +39,8 @@
   <url><loc>https://www.robotist.com.au/faq.html</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://www.robotist.com.au/terms.html</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
   <url><loc>https://www.robotist.com.au/cookies.html</loc><lastmod>2026-09-30</lastmod><changefreq>monthly</changefreq><priority>0.3</priority></url>
-<url><loc>https://www.robotist.com.au/products/grw.html</loc></url><url><loc>https://www.robotist.com.au/products/luna-limx.html</loc></url></urlset>
+<url><loc>https://www.robotist.com.au/products/grw.html</loc></url><url><loc>https://www.robotist.com.au/products/luna-limx.html</loc></url>  <url><loc>https://www.robotist.com.au/industries/hotels.html</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.robotist.com.au/industries/facilities.html</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.robotist.com.au/industries/warehousing.html</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://www.robotist.com.au/industries/retail.html</loc><lastmod>2026-10-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>
