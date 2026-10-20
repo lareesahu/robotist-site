@@ -50,7 +50,7 @@
   --accent-glow: rgba(74, 168, 200, 0.12);
   --accent-glow-strong: rgba(74, 168, 200, 0.22);
   --white: #F0F4F8;
-  --grey-1: #9DAEC0;
+  --grey-1: #8A9BB0;
   --grey-2: #4A5A6A;
   --grey-3: #1E2D3D;
   --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -968,7 +968,7 @@ body::after {
 .ho-panther-visual{display:grid;place-items:center;position:relative;overflow:hidden;min-height:clamp(360px,40vw,580px);background:radial-gradient(ellipse at 50% 40%,var(--bg-4),var(--bg-2) 55%,var(--bg-0) 100%)}
 .ho-panther-visual img{width:78%;height:clamp(330px,39vw,550px);object-fit:contain;object-position:center center;filter:drop-shadow(0 15px 30px rgba(0,0,0,.5));transition:transform .35s}
 .ho-panther:hover img{transform:scale(1.03)}
-.ho-manufacturer-note{margin-top:22px;color:var(--grey-1);font:300 12px/1.7 var(--font-body);max-width:90ch}
+.ho-manufacturer-note{margin-left:calc(clamp(28px,5vw,72px) + 1px);margin-right:calc(clamp(28px,5vw,72px) + 1px);color:var(--grey-1)}
 .ho-proof{background:var(--bg-0)}
 .ho-proof-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.75fr);gap:clamp(30px,6vw,90px);align-items:end}
 .ho-proof-head h2{margin-top:24px}
@@ -997,7 +997,7 @@ body::after {
 .ho-faq summary::after{content:"+";flex:none;color:var(--accent);font-size:26px;font-weight:300;line-height:1}
 .ho-faq details[open] summary::after{content:"−"}
 .ho-faq details p{padding:0 clamp(30px,5vw,80px) 26px 0;color:var(--grey-1);font:300 14px/1.8 var(--font-body);max-width:66ch}
-.ho-decision{background:var(--bg-2);padding:clamp(96px,12vw,165px) var(--gutter);border-top:1px solid var(--ho-line)}
+.ho-decision{background:var(--bg-2);padding:clamp(72px,9vw,120px) var(--gutter);border-top:1px solid var(--ho-line)}
 .ho-decision-inner{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.65fr);gap:clamp(30px,7vw,120px);align-items:end}
 .ho-decision h2{margin-top:25px;font-size:clamp(3rem,6.6vw,7rem)}
 .ho-decision-aside{max-width:43ch;justify-self:end}
@@ -1063,7 +1063,7 @@ body h1,body h2,body h3{letter-spacing:-.025em}
 .ho-copy p,.ho-tier p,.ho-proof-step p{font-size:15.5px}
 .ho-faq details p{font-size:15.5px;line-height:1.75}
 /* labels: readable, evenly tracked */
-.ho-eyebrow,.ho-section-label,.ho-step-no,.ho-tier-detail,.ho-card-meta{font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#B9C9D8}
+.ho-eyebrow,.ho-section-label,.ho-step-no,.ho-tier-detail,.ho-card-meta{font-weight:500;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey-1)}
 .ho-eyebrow{color:var(--accent-light)}
 /* buttons + links */
 .ho-btn,.ho-link,.ho-arrow{font-weight:500;letter-spacing:.06em}
@@ -1121,6 +1121,39 @@ body h1,body h2,body h3{letter-spacing:-.025em}
   .ho-tier-word{font-size:clamp(1.5rem,5.8vw,2rem)}
   .ho-page h2,.ho-faq-heading h2{font-size:clamp(1.5rem,6.6vw,2.1rem)}
   .ho-panther-content .ho-machine-title{font-size:clamp(22px,6.4vw,30px)}
+}
+</style>
+<style id="site-unify">
+/* Industry pages unified with the rest of robotist.com.au:
+   one heading weight + single-colour headlines, site hairline colour, site label and button metrics,
+   and the site's row rhythm. Layout, imagery and copy stay as approved. */
+.ho-intro h1,#hotel-title{font-weight:600;letter-spacing:-.028em;max-width:19ch;font-size:clamp(2.7rem,4.55vw,4rem)}
+.ho-intro h1 span,#hotel-title span,.ho-intro h1 strong,#hotel-title strong,
+.ho-page h2 span,.ho-page h2 strong,.ho-decision h2 span,.ho-decision h2 strong,
+.ho-faq-heading h2 span,.ho-faq-heading h2 strong{color:inherit;font-weight:inherit}
+.ho-page h2,.ho-faq-heading h2,.ho-decision h2{font-weight:600;letter-spacing:-.02em;line-height:1.14}
+.ho-page h2,.ho-faq-heading h2{font-size:clamp(1.75rem,2.9vw,2.7rem)}
+.ho-decision h2{font-size:clamp(1.9rem,3.6vw,3.1rem)}
+.ho-eyebrow{color:var(--accent);letter-spacing:.16em;font-size:11px;font-weight:500}
+.ho-eyebrow::before{display:none}
+.ho-section-label,.ho-card-meta{color:var(--grey-1);font-size:11px;letter-spacing:.16em}
+.ho-page{--ho-line:var(--grey-3)}
+.ho-section{padding-block:clamp(64px,8vw,104px)}
+.ho-tier{align-items:start;padding:clamp(28px,3.6vw,56px) 0;border-radius:2px}
+.ho-tier-word,.ho-tier:first-child .ho-tier-word,.ho-tier:nth-child(2) .ho-tier-word,.ho-tier:nth-child(3) .ho-tier-word{color:var(--white);font-weight:600}
+.ho-tier-num{color:var(--grey-1)}
+.ho-tier .ho-tier-text h3,.ho-proof-step h3,.ho-price-note{font-weight:600}
+.ho-machine{border-radius:2px}
+.ho-machine-title,.ho-proof-step h3{letter-spacing:-.011em}
+.ho-manufacturer-note{margin-left:calc(clamp(28px,5vw,72px) + 1px);margin-right:calc(clamp(28px,5vw,72px) + 1px);color:var(--grey-1)}
+.ho-actions{gap:18px;margin-top:28px}
+.ho-actions .btn-primary,.ho-page a.btn-ghost{padding:15px 30px;font-size:12px;letter-spacing:.12em}
+.ho-link{color:var(--accent);letter-spacing:.12em;font-size:11px}
+.ho-link:hover{color:var(--white)}
+@media (max-width:600px){
+  #hotel-title{font-size:clamp(1.95rem,7.4vw,2.6rem);letter-spacing:-.02em}
+  .ho-page h2,.ho-faq-heading h2{font-size:clamp(1.55rem,6.2vw,2.1rem)}
+  .ho-manufacturer-note{margin-left:calc(clamp(28px,5vw,72px) + 1px);margin-right:calc(clamp(28px,5vw,72px) + 1px);color:var(--grey-1)}
 }
 </style>
 </head>
@@ -1227,7 +1260,7 @@ body h1,body h2,body h3{letter-spacing:-.025em}
   <section class="ho-section ho-tiers" id="capabilities" aria-labelledby="capabilities-title">
     <div class="ho-wrap">
       <div class="ho-heading-row">
-        <div><p class="ho-eyebrow">01 / What you can buy today</p><h2 id="capabilities-title">What you can buy now, <strong>and what still needs checking.</strong></h2></div>
+        <div><p class="ho-eyebrow">What you can buy today</p><h2 id="capabilities-title">What you can buy now, <strong>and what still needs checking.</strong></h2></div>
         <p class="ho-copy">Floor cleaning robots are in our catalogue today. Stock runs between the floor and the back room need engineering for doors and lifts. Customer-facing robots need a trial before anyone promises anything.</p>
       </div>
       <div class="ho-tier-list">
@@ -1249,7 +1282,7 @@ body h1,body h2,body h3{letter-spacing:-.025em}
 
   <section class="ho-section ho-products" id="machines" aria-labelledby="machines-title">
     <div class="ho-wrap">
-      <div class="ho-products-head"><p class="ho-eyebrow">02 / The machines</p><h2 id="machines-title">Three machines, <strong>three different jobs.</strong></h2><p class="ho-copy">Two industrial cleaners for floors. One service robot on wheels for trials. The job decides which machine you need, not the other way round.</p></div>
+      <div class="ho-products-head"><p class="ho-eyebrow">The machines</p><h2 id="machines-title">Three machines, <strong>three different jobs.</strong></h2><p class="ho-copy">Two industrial cleaners for floors. One service robot on wheels for trials. The job decides which machine you need, not the other way round.</p></div>
       <div class="ho-product-grid">
         <a class="ho-machine" href="/products/gausium-phantas.html" aria-label="Explore Gausium Phantas cleaning robot">
           <div class="ho-machine-visual"><span class="ho-machine-index">Machine 01 / Floor care</span><img src="/robots-cut/gausium_phantas.webp" loading="lazy" alt="Gausium Phantas commercial cleaning robot" width="420" height="380"></div>
@@ -1270,7 +1303,7 @@ body h1,body h2,body h3{letter-spacing:-.025em}
 
   <section class="ho-section ho-proof" id="assessment" aria-labelledby="assessment-title">
     <div class="ho-wrap">
-      <div class="ho-proof-head"><div><p class="ho-eyebrow">03 / From demo to decision</p><h2 id="assessment-title">A demo is not <strong>a plan.</strong></h2></div><p class="ho-copy">A robot can look good in a showroom. We turn that into a written plan for your building: what it does, where, how often, how it is measured, and who is responsible.</p></div>
+      <div class="ho-proof-head"><div><p class="ho-eyebrow">From demo to decision</p><h2 id="assessment-title">A demo is not <strong>a plan.</strong></h2></div><p class="ho-copy">A robot can look good in a showroom. We turn that into a written plan for your building: what it does, where, how often, how it is measured, and who is responsible.</p></div>
       <div class="ho-proof-steps">
         <article class="ho-proof-step"><span class="ho-step-no">Step 1</span><h3>Walk the building</h3><p>Floor plans, floor types, thresholds, foot traffic, shift times, power outlets and the building systems involved.</p></article>
         <article class="ho-proof-step"><span class="ho-step-no">Step 2</span><h3>Write the job down</h3><p>Which areas, which hours, what “clean” has to look like, what staff still do and what the robot will not do — agreed before a model is picked.</p></article>
@@ -1283,7 +1316,7 @@ body h1,body h2,body h3{letter-spacing:-.025em}
   </section>
 
   <section class="ho-section ho-faq-section" id="faq" aria-labelledby="faq-title">
-    <div class="ho-wrap ho-faq-grid"><div class="ho-faq-heading"><p class="ho-eyebrow">04 / Before you buy</p><h2 id="faq-title">Questions <strong>worth asking.</strong></h2></div>
+    <div class="ho-wrap ho-faq-grid"><div class="ho-faq-heading"><p class="ho-eyebrow">Before you buy</p><h2 id="faq-title">Questions <strong>worth asking.</strong></h2></div>
       <div class="ho-faq">
         <details><summary>Can a cleaning robot work while customers are in the store?</summary><p>Usually yes, depending on the layout and how the machine behaves. Cleaning before opening is easier to plan. A site check looks at customer traffic, the route, and how the robot reacts when someone steps in front of it.</p></details>
         <details><summary>Which floor types can it clean?</summary><p>It depends on the machine and the cleaning mode. Tile, stone, vinyl, carpet, thresholds, ramps and level changes are checked against the manufacturer's specification, and tested at your property where possible.</p></details>
@@ -1296,7 +1329,7 @@ body h1,body h2,body h3{letter-spacing:-.025em}
   </section>
 
   <section class="ho-decision" aria-labelledby="decision-title">
-    <div class="ho-wrap ho-decision-inner"><div><p class="ho-eyebrow">05 / The next step</p><h2 id="decision-title">Start with <strong>your building.</strong></h2></div><div class="ho-decision-aside"><p>Tell us which tasks repeat, on which floors, and during which hours. We will tell you what the first site check covers, what your building needs, and what we still have to check.</p><a href="/contact.html" onclick="openInquiry();return false" class="btn-primary">Talk to us about your store ↗</a></div></div>
+    <div class="ho-wrap ho-decision-inner"><div><p class="ho-eyebrow">The next step</p><h2 id="decision-title">Start with <strong>your building.</strong></h2></div><div class="ho-decision-aside"><p>Tell us which tasks repeat, on which floors, and during which hours. We will tell you what the first site check covers, what your building needs, and what we still have to check.</p><a href="/contact.html" onclick="openInquiry();return false" class="btn-primary">Talk to us about your store ↗</a></div></div>
   </section>
 </main>
 
