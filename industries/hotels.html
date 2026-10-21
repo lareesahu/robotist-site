@@ -1156,6 +1156,37 @@ body h1,body h2,body h3{letter-spacing:-.025em}
   .ho-manufacturer-note{margin-left:calc(clamp(28px,5vw,72px) + 1px);margin-right:calc(clamp(28px,5vw,72px) + 1px);color:var(--grey-1)}
 }
 </style>
+<style id="ho-concepts">
+/* Hospitality concepts + RIDS + partnership CTA — informed by BTL_ROBOTIST_V1 deck, built in the site's own tokens */
+.hc-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,1.6vw,24px);margin-top:clamp(28px,3.4vw,44px)}
+.hc-card{display:flex;flex-direction:column;background:var(--bg-1);border:1px solid var(--grey-3);border-radius:2px;overflow:hidden;transition:border-color .2s}
+.hc-card:hover{border-color:var(--accent-dim)}
+.hc-media{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--bg-2)}
+.hc-media::after{content:'Concept visual';position:absolute;top:10px;left:10px;padding:4px 8px;background:rgba(6,12,18,.72);border:1px solid rgba(74,168,200,.42);border-radius:2px;font:500 10px/1.3 var(--font-main);letter-spacing:.13em;text-transform:uppercase;color:var(--accent);backdrop-filter:blur(4px)}
+.hc-media img{width:100%;height:100%;object-fit:cover;object-position:center;display:block;filter:saturate(.96)}
+.hc-body{display:flex;flex-direction:column;gap:8px;padding:clamp(18px,1.8vw,24px);flex:1}
+.hc-cat{margin:0;font:500 10px/1.4 var(--font-main);letter-spacing:.16em;text-transform:uppercase;color:var(--grey-1)}
+.hc-name{margin:0;font:600 clamp(17px,1.5vw,20px)/1.25 var(--font-main);letter-spacing:-.011em;color:var(--white)}
+.hc-use{margin:0;font:400 14.5px/1.65 var(--font-body);color:var(--grey-1);flex:1}
+.hc-note{margin:clamp(20px,2.4vw,28px) 0 0;max-width:74ch;font:400 13.5px/1.7 var(--font-body);color:var(--grey-1)}
+.rids{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:clamp(20px,2.4vw,36px);margin-top:clamp(28px,3.4vw,44px)}
+.rids-item{padding-top:18px;border-top:1px solid var(--grey-3)}
+.rids .rids-letter{display:block;font:600 clamp(36px,4vw,56px)/1 var(--font-main);letter-spacing:-.03em;color:var(--accent)}
+.rids-name{margin:10px 0 6px;font:600 15px/1.3 var(--font-main);letter-spacing:.02em;text-transform:uppercase;color:var(--white)}
+.rids-copy{margin:0;font:400 14px/1.6 var(--font-body);color:var(--grey-1)}
+.hc-cta{margin-top:clamp(34px,4vw,56px);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(20px,2.6vw,40px);padding:clamp(26px,3.4vw,44px);background:var(--bg-1);border:1px solid var(--grey-3);border-left:2px solid var(--accent);border-radius:2px}
+.hc-cta-text{max-width:56ch}
+.hc-cta .ho-eyebrow{margin:0 0 10px}
+.hc-cta h3{margin:0 0 8px;font:600 clamp(20px,2.2vw,28px)/1.2 var(--font-main);letter-spacing:-.015em;color:var(--white)}
+.hc-cta p{margin:0;font:400 14px/1.65 var(--font-body);color:var(--grey-1)}
+.hc-cta .btn-primary{white-space:nowrap}
+@media (max-width:1024px){.hc-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){
+  .hc-grid{grid-template-columns:1fr}
+  .hc-cta{flex-direction:column;align-items:flex-start}
+  .hc-cta .btn-primary{width:100%;text-align:center}
+}
+</style>
 </head>
 <body>
 
@@ -1298,6 +1329,134 @@ body h1,body h2,body h3{letter-spacing:-.025em}
         <div class="ho-panther-visual"><img src="/robots-cut/unix_panther.webp" loading="lazy" alt="UniX AI Panther wheeled humanoid service robot" width="500" height="560"></div>
       </a>
       <p class="ho-manufacturer-note">These are catalogue prices. Freight, setup, connecting it to your systems, training and support are extra. Every speed, runtime and autonomy number above is the manufacturer's specification — we have not measured these machines in a hotel.</p>
+    </div>
+  </section>
+
+
+  <section class="ho-section" id="concepts" aria-labelledby="concepts-title">
+    <div class="ho-wrap">
+      <div class="ho-products-head">
+        <p class="ho-eyebrow">Hospitality concepts</p>
+        <h2 id="concepts-title">Nine hotel jobs a robot could do, <strong>and none of them off the shelf.</strong></h2>
+        <p class="ho-copy">These are not catalogue stock. Each is a concept for a hotel job, shown so you can see what the work would look like. Anything sold today is in the catalogue above.</p>
+      </div>
+      <div class="hc-grid">
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/live-piano-harmonix.webp" alt="Concept visual: a humanoid robot playing a grand piano in a warmly lit hotel lounge" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">Live piano</p>
+          <h3 class="hc-name">Harmonix</h3>
+          <p class="hc-use">Plays a lobby or lounge set during service hours.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/guest-guidance-magicbot-g1.webp" alt="Concept visual: a humanoid robot guiding a guest through a hotel corridor" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">Guest guidance</p>
+          <h3 class="hc-name">MagicBot G1</h3>
+          <p class="hc-use">Greets arrivals and walks them to a room, a lift or an event space.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/reception-host-moya.webp" alt="Concept visual: a humanoid robot behind a hotel reception desk talking to guests" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">Reception host</p>
+          <h3 class="hc-name">Moya</h3>
+          <p class="hc-use">Checks guests in and answers questions at the front desk.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/in-room-companion-looi.webp" alt="Concept visual: a small desktop robot beside a guest working on a laptop in a hotel room" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">In-room companion</p>
+          <h3 class="hc-name">Looi</h3>
+          <p class="hc-use">Sits on the desk or bedside table and holds a conversation.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/in-room-assistance-fourier-gr3.webp" alt="Concept visual: a white humanoid robot assisting a guest seated on a hotel bed" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">In-room assistance</p>
+          <h3 class="hc-name">Fourier GR3</h3>
+          <p class="hc-use">Helps guests with simple tasks inside the room.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/robot-bartender-isage.webp" alt="Concept visual: a robot bartender working behind an upscale hotel bar" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">Robot bartender</p>
+          <h3 class="hc-name">Isage</h3>
+          <p class="hc-use">Mixes and serves drinks at the bar.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/patrol-inspect-monitor.webp" alt="Concept visual: a four-legged patrol robot walking through a hotel lobby" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">Patrol and inspection</p>
+          <h3 class="hc-name">Legged patrol unit</h3>
+          <p class="hc-use">Walks a set route at night and reports what it sees.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/bathroom-cleaning-unix-panther.webp" alt="Concept visual: a cleaning robot working in a hotel guest bathroom" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">Bathroom cleaning</p>
+          <h3 class="hc-name">UniX Panther</h3>
+          <p class="hc-use">Washes toilets and surfaces on guest floors.</p>
+        </div>
+      </article>
+      <article class="hc-card">
+        <div class="hc-media"><img src="/images/hospitality/banquet-setup-kepler.webp" alt="Concept visual: a humanoid robot carrying a chair in a hotel banquet room" loading="lazy" width="1000" height="893"></div>
+        <div class="hc-body">
+          <p class="hc-cat">Banquet setup</p>
+          <h3 class="hc-name">Kepler</h3>
+          <p class="hc-use">Moves chairs and resets a banquet hall between events.</p>
+        </div>
+      </article>
+      </div>
+      <p class="hc-note">Every image here is a concept visual: nothing on this list is installed at a hotel yet. Before any of them can be quoted, we check the building, the floor surface, the network and who supervises the machine.</p>
+    </div>
+  </section>
+
+  <section class="ho-section" id="how-we-work" aria-labelledby="rids-title">
+    <div class="ho-wrap">
+      <div class="ho-proof-head">
+        <div>
+          <p class="ho-eyebrow">How we work</p>
+          <h2 id="rids-title">One partner, <strong>four stages.</strong></h2>
+        </div>
+        <p class="ho-copy">Robotist is not a robot manufacturer. We choose the machine, connect it to your systems, put it on the floor, and stay on the account afterwards.</p>
+      </div>
+      <div class="rids">
+        <div class="rids-item">
+          <span class="rids-letter">R</span>
+          <p class="rids-name">Reimagine</p>
+          <p class="rids-copy">Find the work that is worth automating before any machine is chosen.</p>
+        </div>
+        <div class="rids-item">
+          <span class="rids-letter">I</span>
+          <p class="rids-name">Integrate</p>
+          <p class="rids-copy">Connect the robot to your booking, lift and ticketing systems.</p>
+        </div>
+        <div class="rids-item">
+          <span class="rids-letter">D</span>
+          <p class="rids-name">Deploy</p>
+          <p class="rids-copy">Install it, train the team, and check it against the job.</p>
+        </div>
+        <div class="rids-item">
+          <span class="rids-letter">S</span>
+          <p class="rids-name">Support</p>
+          <p class="rids-copy">Keep it running, and extend it when the next job appears.</p>
+        </div>
+      </div>
+      <div class="hc-cta">
+        <div class="hc-cta-text">
+          <p class="ho-eyebrow">The partnership</p>
+          <h3>Start with one property.</h3>
+          <p>Pick one hotel and one job. We prove it there, measure it, and only then decide whether it spreads. The first spend stays small and the decision stays reversible.</p>
+        </div>
+        <a href="/contact.html" onclick="openInquiry();return false" class="btn-primary">Talk to us about a pilot &rarr;</a>
+      </div>
     </div>
   </section>
 
