@@ -1612,10 +1612,21 @@ reqForm.addEventListener('submit', function(event) {
   reqStatus.textContent = '';
 
   const formData = new FormData(form);
-  fetch('https://formspree.io/f/mnjevgjq', {
-    method: 'POST',
-    body: formData,
+  formData.append('form_kind', 'requirements');
+  fetch('/inquiry/token', {
+    credentials: 'same-origin',
     headers: { 'Accept': 'application/json' }
+  })
+  .then(response => response.ok ? response.json() : {})
+  .catch(() => ({}))
+  .then(tokenBody => {
+    if (tokenBody && tokenBody.token) { formData.append('submission_token', tokenBody.token); }
+    return fetch('/inquiries', {
+      method: 'POST',
+      body: formData,
+      credentials: 'same-origin',
+      headers: { 'Accept': 'application/json' }
+    });
   })
   .then(response => {
     if (response.ok) {

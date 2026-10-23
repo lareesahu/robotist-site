@@ -15,7 +15,11 @@
 (function () {
   'use strict';
 
-  var FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnjevgjq';
+  /* Submissions go to the Robotist console (/inquiries) so every inquiry lands in
+     the operator dashboard as well as the notification email. The console issues
+     a one-time session token first; static pages cannot carry one at render time. */
+  var INQUIRY_ENDPOINT = '/inquiries';
+  var TOKEN_ENDPOINT = '/inquiry/token';
   /* Filled in by the server (catalog/app.py) when the reCAPTCHA check is on. */
   var RECAPTCHA_SITE_KEY = '';
   var MIN_SUBMIT_MS = 3000;
@@ -217,17 +221,28 @@
       form.setAttribute('aria-busy', 'true');
 
       function deliver() {
-        fetch(FORMSPREE_ENDPOINT, {
-          method: 'POST',
-          body: formData,
+        fetch(TOKEN_ENDPOINT, {
+          credentials: 'same-origin',
           headers: { 'Accept': 'application/json' }
+        }).then(function (tokenResponse) {
+          return tokenResponse.ok ? tokenResponse.json() : {};
+        }, function () {
+          return {};
+        }).then(function (tokenBody) {
+          if (tokenBody && tokenBody.token) { formData.append('submission_token', tokenBody.token); }
+          return fetch(INQUIRY_ENDPOINT, {
+            method: 'POST',
+            body: formData,
+            credentials: 'same-origin',
+            headers: { 'Accept': 'application/json' }
+          });
         }).then(function (response) {
           if (response.ok) {
             showSuccess(form, btn, opts);
           } else {
             return response.json().then(
-              function () { throw new Error('Formspree HTTP ' + response.status); },
-              function () { throw new Error('Formspree HTTP ' + response.status); }
+              function (body) { throw new Error((body && body.error) || ('Inquiry HTTP ' + response.status)); },
+              function () { throw new Error('Inquiry HTTP ' + response.status); }
             );
           }
         }).catch(function () {
