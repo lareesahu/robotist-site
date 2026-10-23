@@ -230,6 +230,7 @@
           return {};
         }).then(function (tokenBody) {
           if (tokenBody && tokenBody.token) { formData.append('submission_token', tokenBody.token); }
+          if (tokenBody && tokenBody.csrf) { formData.append('csrf', tokenBody.csrf); }
           return fetch(INQUIRY_ENDPOINT, {
             method: 'POST',
             body: formData,

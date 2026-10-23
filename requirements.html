@@ -1621,6 +1621,7 @@ reqForm.addEventListener('submit', function(event) {
   .catch(() => ({}))
   .then(tokenBody => {
     if (tokenBody && tokenBody.token) { formData.append('submission_token', tokenBody.token); }
+    if (tokenBody && tokenBody.csrf) { formData.append('csrf', tokenBody.csrf); }
     return fetch('/inquiries', {
       method: 'POST',
       body: formData,
