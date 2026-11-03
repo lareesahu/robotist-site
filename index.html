@@ -3708,7 +3708,7 @@ body::after {
 .grn-invitation h2 { font-size: var(--h2-band); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; }
 .grn-invitation .grn-kicker { color: var(--accent); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
 .grn-invitation a { display: inline-flex; align-items: center; min-height: 48px; color: var(--accent-light); border-bottom: 1px solid var(--accent); text-decoration: none; }
-.network-coverage { padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); background: var(--bg-1); }
+.network-coverage { position: relative; z-index: 1; padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); background: var(--bg-1); }
 .network-coverage-inner { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(36px, 5vw, 80px); align-items: start; }
 .network-copy h2 { font-size: var(--h2-band); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; margin: 14px 0 0; }
 .network-copy p { color: #C3D0DC; line-height: 1.75; max-width: 52ch; margin: 20px 0 26px; }
@@ -3719,7 +3719,7 @@ body::after {
 .coverage-city { font-family: var(--font-main); font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: var(--white); display: inline-flex; align-items: center; }
 .coverage-city::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-right: 11px; flex: none; }
 .coverage-note { font-size: 12.5px; line-height: 1.5; color: var(--grey-1); }
-.latest-posts { padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); }
+.latest-posts { position: relative; z-index: 1; padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); }
 .latest-inner { max-width: 1400px; margin: 0 auto; }
 .latest-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 34px; flex-wrap: wrap; }
 .latest-all { margin-bottom: 6px; }
@@ -3823,6 +3823,78 @@ body::after {
   .nav-submenu{position:static;opacity:1;visibility:visible;transform:none;min-width:0;padding:0 0 6px 14px;background:transparent;border:0;box-shadow:none}
   .nav-submenu a{padding:7px 0;font-size:15px;color:#A9BACB}
   .nav-submenu a span{display:none}
+}
+
+/* ===== PREMIUM CARD (2026-11-03) =====
+   Flat dark pane, hairline border, neutral studio plate. Replaces the blue-white gradient well,
+   the inset white highlight and the painted contact shadow, which read as plastic. */
+.robot-card {
+  background: #0A141F;
+  border: 1px solid rgba(168, 205, 230, 0.10);
+  box-shadow: none;
+  border-radius: 6px;
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1), border-color .35s,
+              box-shadow .35s, background .35s;
+}
+.robot-card:hover,
+.robot-card.reveal.visible:hover {
+  transform: translateY(-4px);
+  border-color: rgba(168, 205, 230, 0.26);
+  background: #0C1826;
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.85);
+}
+.robot-card .robot-card-img-wrap {
+  width: calc(100% - 14px);
+  margin: 7px;
+  padding: 24px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, #F7F8F9 0%, #EDEFF1 100%);
+  box-shadow: none;
+}
+.robot-card .robot-card-img-wrap::before,
+.robot-card .robot-card-img-wrap::after { display: none; }
+.robot-card:hover .robot-card-img { transform: scale(1.02); }
+.robot-card .robot-info {
+  background: transparent;
+  border-top: 1px solid rgba(168, 205, 230, 0.08);
+  padding: 16px 18px 18px;
+  min-height: 112px;
+}
+.robot-card .robot-info-name {
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: #EFF4F8;
+  margin-bottom: 4px;
+}
+.robot-card .robot-info-price {
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--accent-light);
+}
+.robot-card .robot-info-best {
+  font-size: 11.5px;
+  color: #93A6B7;
+  margin-top: 7px;
+}
+.robot-card .robot-cat-tag {
+  background: rgba(6, 13, 22, 0.72);
+  border: 1px solid rgba(168, 205, 230, 0.18);
+  color: #A9BECD;
+  border-radius: 2px;
+  letter-spacing: 0.16em;
+  backdrop-filter: blur(6px);
+}
+.robot-card .robot-featured-badge {
+  background: var(--accent-light);
+  color: #04101A;
+  border-radius: 2px;
+  letter-spacing: 0.18em;
+  font-weight: 600;
+}
+@media (max-width: 560px) {
+  .robot-grid { grid-template-columns: 1fr; gap: 14px; }
+  .robot-card .robot-info-name,
+  .robot-card .robot-info-best { white-space: normal; overflow: visible; }
 }
 </style>
 </head>
