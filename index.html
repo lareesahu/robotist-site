@@ -5716,6 +5716,7 @@ document.querySelectorAll('.robot-card').forEach(function(card) {
     .then(function (posts) {
       var PRICING = /(cost|pricing|\bprice[sd]?\b|per shift|per square|\bbudget\b|\bUSD\b|\$)/i;
       var sorted = posts.filter(function (p) {
+        if (p.status && p.status !== 'published') return false;
         var hay = [p.title, p.excerpt, p.keywords].filter(Boolean).join(' ');
         return !PRICING.test(hay);
       }).sort(function (a, b) {
