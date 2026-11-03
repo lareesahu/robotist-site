@@ -3708,6 +3708,39 @@ body::after {
 .grn-invitation h2 { font-size: var(--h2-band); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; }
 .grn-invitation .grn-kicker { color: var(--accent); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
 .grn-invitation a { display: inline-flex; align-items: center; min-height: 48px; color: var(--accent-light); border-bottom: 1px solid var(--accent); text-decoration: none; }
+.network-coverage { padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); background: var(--bg-1); }
+.network-coverage-inner { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(36px, 5vw, 80px); align-items: start; }
+.network-copy h2 { font-size: var(--h2-band); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; margin: 14px 0 0; }
+.network-copy p { color: #C3D0DC; line-height: 1.75; max-width: 52ch; margin: 20px 0 26px; }
+.network-link { display: inline-flex; align-items: center; min-height: 48px; color: var(--accent-light); border-bottom: 1px solid var(--accent); text-decoration: none; }
+.network-link:hover { color: var(--white); }
+.coverage { list-style: none; margin: 40px 0 0; padding: 0; border-top: 1px solid var(--grey-3); }
+.coverage li { display: grid; grid-template-columns: minmax(120px, 0.6fr) minmax(0, 1fr); gap: 18px; padding: 17px 0; border-bottom: 1px solid var(--grey-3); align-items: baseline; }
+.coverage-city { font-family: var(--font-main); font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: var(--white); display: inline-flex; align-items: center; }
+.coverage-city::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-right: 11px; flex: none; }
+.coverage-note { font-size: 12.5px; line-height: 1.5; color: var(--grey-1); }
+.latest-posts { padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); }
+.latest-inner { max-width: 1400px; margin: 0 auto; }
+.latest-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 34px; flex-wrap: wrap; }
+.latest-all { margin-bottom: 6px; }
+.latest-title { font-size: var(--h2-band); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; margin: 12px 0 0; }
+.latest-all { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent-light); border-bottom: 1px solid var(--accent); text-decoration: none; font-size: 13px; }
+.latest-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; }
+.post-card { display: flex; flex-direction: column; background: var(--bg-1); border: 1px solid var(--grey-3); text-decoration: none; overflow: hidden; transition: border-color .25s, background .25s; }
+.post-card:hover { border-color: var(--accent-dim); background: var(--bg-2); }
+.post-cover { aspect-ratio: 16/9; background: var(--bg-2); overflow: hidden; }
+.post-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.post-body { padding: 24px 26px 32px; display: flex; flex-direction: column; flex: 1; }
+.post-category { font-size: 10px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--accent-light); margin-bottom: 10px; }
+.post-title { font-family: var(--font-main); font-size: 17px; font-weight: 600; letter-spacing: -.01em; color: var(--white); line-height: 1.35; margin: 0 0 10px; }
+.post-excerpt { font-size: 13px; color: var(--grey-1); line-height: 1.65; flex: 1; margin: 0 0 16px; }
+.post-meta { font-size: 11.5px; letter-spacing: .04em; color: #8FA3B5; }
+.latest-fallback { color: var(--grey-1); font-size: 14px; }
+@media (max-width: 900px) {
+  .network-coverage-inner { grid-template-columns: 1fr; gap: 32px; }
+  .latest-grid { grid-template-columns: 1fr; }
+  .coverage li { grid-template-columns: 1fr; gap: 4px; }
+}
 @media(max-width: 700px) { .grn-invitation { grid-template-columns: 1fr; gap: 20px; padding-top: 55px; padding-bottom: 55px; } }
 
 /* The Why section reads left/right on a wide screen: the argument stays put on the
@@ -4461,9 +4494,35 @@ body::after {
 <!-- ══════════════════════════════════════════════
      SERVICE PACKAGES
      ══════════════════════════════════════════════ -->
-<section class="grn-invitation" aria-labelledby="grn-heading">
-  <div><p class="grn-kicker">Global Robotics Network</p><h2 id="grn-heading">The next chapter<br>needs people like you.</h2></div>
-  <div><p>Bringing robotics into the real world takes different kinds of expertise. Join the conversation with Robotist's Global Robotics Network.</p><a href="/grn/">Discover GRN &amp; apply to join ↗</a></div>
+<section class="network-coverage" id="network" aria-labelledby="network-heading">
+  <div class="network-coverage-inner">
+    <div class="network-copy">
+      <div class="section-eyebrow">Global Robotics Network</div>
+      <h2 id="network-heading">People on the ground,<br>not a call centre.</h2>
+      <p>Robotist deployments are supported by independent specialists across Asia-Pacific — engineers who have commissioned the machines they recommend, and who pick up when a site needs someone on it.</p>
+      <a class="network-link" href="/grn/">Meet the network ↗</a>
+    </div>
+    <ul class="coverage">
+      <li><span class="coverage-city">Sydney</span><span class="coverage-note">Headquarters · APAC deployment</span></li>
+      <li><span class="coverage-city">Melbourne</span><span class="coverage-note">Electronics · humanoid &amp; legged systems</span></li>
+      <li><span class="coverage-city">Kuala Lumpur</span><span class="coverage-note">ROS 2 · autonomous navigation</span></li>
+      <li><span class="coverage-city">Shanghai</span><span class="coverage-note">Supply · engineering</span></li>
+      <li><span class="coverage-city">Hangzhou</span><span class="coverage-note">Manufacturing partners</span></li>
+    </ul>
+  </div>
+</section>
+<section class="latest-posts" id="insights" aria-labelledby="posts-heading">
+  <div class="latest-inner">
+    <div class="latest-head">
+      <div>
+        <div class="section-eyebrow">From the blog</div>
+        <h2 id="posts-heading" class="latest-title">Latest thinking.</h2>
+      </div>
+      <a class="latest-all" href="/blog.html">All articles ↗</a>
+    </div>
+    <div class="latest-grid" id="latest-grid"></div>
+    <noscript><p class="latest-fallback">Read the latest at <a href="/blog.html">the Robotist blog</a>.</p></noscript>
+  </div>
 </section>
 <section class="services" id="services">
   <div class="services-inner">
@@ -5588,6 +5647,56 @@ document.querySelectorAll('.robot-card').forEach(function(card) {
   document.addEventListener('click', function (e) {
     if (e.target.closest && e.target.closest('.robot-filter, .filter-pill, [data-category]')) setTimeout(mark, 250);
   }, true);
+})();
+</script>
+<script>
+(function () {
+  var grid = document.getElementById('latest-grid');
+  if (!grid || !window.fetch) return;
+  fetch('/blog-posts.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('blog index unavailable')); })
+    .then(function (posts) {
+      var sorted = posts.slice().sort(function (a, b) {
+        return new Date(b.date) - new Date(a.date);
+      }).slice(0, 3);
+      sorted.forEach(function (post) {
+        var card = document.createElement('a');
+        card.className = 'post-card';
+        card.href = '/blog/' + post.slug + '.html';
+        var cover = document.createElement('div');
+        cover.className = 'post-cover';
+        var img = document.createElement('img');
+        img.src = '/' + String(post.coverUrl || '').replace(/^\//, '');
+        img.alt = '';
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        cover.appendChild(img);
+        var body = document.createElement('div');
+        body.className = 'post-body';
+        var cat = document.createElement('div');
+        cat.className = 'post-category';
+        cat.textContent = post.category || 'Insight';
+        var title = document.createElement('h3');
+        title.className = 'post-title';
+        title.textContent = post.title || '';
+        var excerpt = document.createElement('p');
+        excerpt.className = 'post-excerpt';
+        excerpt.textContent = post.excerpt || '';
+        var meta = document.createElement('div');
+        meta.className = 'post-meta';
+        meta.textContent = [post.date, post.readTime].filter(Boolean).join(' · ');
+        body.appendChild(cat);
+        body.appendChild(title);
+        body.appendChild(excerpt);
+        body.appendChild(meta);
+        card.appendChild(cover);
+        card.appendChild(body);
+        grid.appendChild(card);
+      });
+    })
+    .catch(function () {
+      grid.innerHTML = '<p class="latest-fallback">The blog index could not load. <a href="/blog.html">Open the blog</a>.</p>';
+    });
 })();
 </script>
 </body>
