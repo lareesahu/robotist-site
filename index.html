@@ -5714,7 +5714,11 @@ document.querySelectorAll('.robot-card').forEach(function(card) {
   fetch('/blog-posts.json', { cache: 'no-store' })
     .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('blog index unavailable')); })
     .then(function (posts) {
-      var sorted = posts.slice().sort(function (a, b) {
+      var PRICING = /(cost|pricing|\bprice[sd]?\b|per shift|per square|\bbudget\b|\bUSD\b|\$)/i;
+      var sorted = posts.filter(function (p) {
+        var hay = [p.title, p.excerpt, p.keywords].filter(Boolean).join(' ');
+        return !PRICING.test(hay);
+      }).sort(function (a, b) {
         return new Date(b.date) - new Date(a.date);
       }).slice(0, 3);
       sorted.forEach(function (post) {
