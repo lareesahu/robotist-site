@@ -3705,6 +3705,55 @@ body::after {
 .coverage-city { font-family: var(--font-main); font-size: 15px; font-weight: 600; letter-spacing: -.01em; color: var(--white); display: inline-flex; align-items: center; }
 .coverage-city::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--accent); margin-right: 11px; flex: none; }
 .coverage-note { font-size: 12.5px; line-height: 1.5; color: var(--grey-1); }
+/* ── Deployment capacity — motion library ──────────────────────────────
+   Two entry points (3D viewer, licensed catalogue) plus the per-class
+   mapping. Thumbs are the library's own renders, so nothing here is a
+   placeholder image.                                            */
+.motion-capacity { position: relative; z-index: 1; padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); background: var(--bg-1); }
+.mc-inner { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 4vw, 64px); align-items: start; }
+.mc-title { font-size: var(--h2-band); line-height: 1.1; letter-spacing: -.035em; font-weight: 500; margin: 14px 0 0; max-width: 22ch; }
+.mc-lede { color: #C3D0DC; line-height: 1.75; max-width: 54ch; margin: 20px 0 0; }
+.mc-lede + .mc-lede { margin-top: 14px; }
+.mc-stats { display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 26px 0 0; padding: 0; list-style: none; font-size: 12.5px; color: var(--grey-1); }
+.mc-stats b { color: var(--white); font-weight: 600; font-variant-numeric: tabular-nums; margin-right: 4px; }
+.mc-links { display: flex; flex-wrap: wrap; gap: 10px 28px; margin-top: 26px; }
+.mc-link { display: inline-flex; align-items: center; min-height: 44px; color: var(--accent-light); border-bottom: 1px solid var(--accent); text-decoration: none; font-size: 13.5px; }
+.mc-link:hover { color: var(--white); }
+.mc-stage { display: flex; flex-direction: column; gap: 12px; }
+.mc-frame { display: block; position: relative; border: 1px solid var(--grey-3); background: var(--bg-2); text-decoration: none; overflow: hidden; }
+.mc-frame img { display: block; width: 100%; height: clamp(300px, 27vw, 430px); object-fit: cover; object-position: center 42%; background: #04101C; }
+.mc-frame-meta { position: absolute; left: 0; right: 0; bottom: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 16px; background: linear-gradient(to top, rgba(4, 12, 22, .95), rgba(4, 12, 22, .5) 65%, transparent); }
+.mc-clip-name { font-family: var(--font-main); font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -.01em; }
+.mc-clip-spec { font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #8FA3B5; }
+.mc-thumbs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.mc-thumb { padding: 0; border: 1px solid var(--grey-3); background: var(--bg-2); cursor: pointer; overflow: hidden; display: block; transition: border-color .2s, transform .2s; }
+.mc-thumb img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: center 45%; }
+.mc-thumb:hover { border-color: var(--accent-dim); transform: translateY(-2px); }
+.mc-thumb[aria-pressed="true"] { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.mc-thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mc-stage-note { font-size: 12px; line-height: 1.6; color: var(--grey-1); margin: 2px 0 0; }
+.mc-map { max-width: 1400px; margin: clamp(44px, 6vw, 72px) auto 0; border-top: 1px solid var(--grey-3); padding-top: clamp(26px, 3vw, 38px); }
+.mc-map-head { display: flex; justify-content: space-between; align-items: baseline; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+.mc-map-title { font-size: clamp(18px, 1.6vw, 23px); font-weight: 600; letter-spacing: -.015em; margin: 0; color: var(--white); }
+.mc-map-note { font-size: 12.5px; color: var(--grey-1); margin: 0; }
+.mc-row { display: grid; grid-template-columns: minmax(160px, 200px) minmax(0, 1fr) minmax(0, 1.15fr); gap: 18px 28px; padding: 18px 0; border-top: 1px solid var(--grey-3); align-items: start; }
+.mc-rows .mc-row:last-child { border-bottom: 1px solid var(--grey-3); }
+.mc-row-class { font-size: 14.5px; font-weight: 600; color: var(--white); }
+.mc-row-count { font-size: 11.5px; color: var(--grey-1); margin-top: 4px; }
+.mc-clips { display: flex; flex-wrap: wrap; gap: 6px; }
+.mc-clip { font-size: 11.5px; line-height: 1.5; color: var(--accent-light); border: 1px solid var(--grey-3); background: rgba(74, 168, 200, .06); padding: 3px 9px; text-decoration: none; }
+.mc-clip:hover { border-color: var(--accent); color: var(--white); }
+.mc-models { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12.5px; line-height: 1.9; }
+.mc-model { color: #A9BACB; text-decoration: none; border-bottom: 1px solid transparent; }
+.mc-model:hover { color: var(--white); border-bottom-color: var(--accent); }
+@media (max-width: 1100px) {
+  .mc-inner { grid-template-columns: 1fr; }
+  .mc-row { grid-template-columns: 1fr; gap: 10px; }
+}
+@media (max-width: 700px) {
+  .mc-thumbs { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+  .mc-stats { gap: 6px 18px; }
+}
 .latest-posts { position: relative; z-index: 1; padding: var(--band-pad) var(--gutter); border-top: 1px solid var(--grey-3); }
 .latest-inner { max-width: 1400px; margin: 0 auto; }
 .latest-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 28px; margin-bottom: 34px; flex-wrap: wrap; }
@@ -4569,6 +4618,85 @@ body::after {
     </ul>
   </div>
 </section>
+<!-- ══════════════════════════════════════════════
+     DEPLOYMENT CAPACITY — motion library
+     Two libraries, one purpose: prove the movement before the machine ships.
+     Clip thumbs come from /motion-library/thumbs/, mapping from motion-library/models.json.
+     ══════════════════════════════════════════════ -->
+<section class="motion-capacity" id="motion" aria-labelledby="motion-heading">
+  <div class="mc-inner">
+    <div class="mc-copy">
+      <div class="section-eyebrow">Deployment capacity</div>
+      <h2 id="motion-heading" class="mc-title">You should see the movement before you sign for the machine.</h2>
+      <p class="mc-lede">A robot is not deployed because it arrived in a crate. It is deployed when it does what your site actually asks — walks a corridor at shift change, kneels beside a patient, takes one step up, holds still for an inspection photograph.</p>
+      <p class="mc-lede">Two libraries make that test possible: 26 captured performances and 25 licensed records, both retargeted onto a 23-joint humanoid rig and exported as joint-space animation at 50 frames a second — the format a robot controller accepts without translation. Every machine on this page ships with the set its body can perform.</p>
+      <ul class="mc-stats">
+        <li><b>26</b> playable clips</li>
+        <li><b>23</b> joints per rig</li>
+        <li><b>50</b> fps joint space</li>
+        <li><b>25</b> licensed records</li>
+      </ul>
+      <div class="mc-links">
+        <a class="mc-link" href="/motion-library/">Open the 3D library ↗</a>
+        <a class="mc-link" href="/library.html">Search the licensed catalogue ↗</a>
+      </div>
+    </div>
+    <div class="mc-stage">
+      <a class="mc-frame" id="mcFrame" href="/motion-library/?clip=stair_climb">
+        <img src="/motion-library/thumbs/stair_climb.webp" alt="Stair climb — 23-joint rig preview" width="1200" height="675" loading="lazy" decoding="async">
+        <div class="mc-frame-meta"><span class="mc-clip-name">Stair climb</span><span class="mc-clip-spec">locomotion · 10 s · 50 fps</span></div>
+      </a>
+      <div class="mc-thumbs" role="group" aria-label="Preview a clip">
+        <button class="mc-thumb" type="button" data-clip="stair_climb" data-name="Stair climb" data-spec="locomotion · 10 s · 50 fps" data-thumb="/motion-library/thumbs/stair_climb.webp" aria-pressed="true" aria-label="Preview Stair climb"><img src="/motion-library/thumbs/stair_climb.webp" alt="" loading="lazy" decoding="async"></button>
+        <button class="mc-thumb" type="button" data-clip="jog_slow" data-name="Slow jog" data-spec="locomotion · 10 s · 50 fps" data-thumb="/motion-library/thumbs/jog_slow.webp" aria-pressed="false" aria-label="Preview Slow jog"><img src="/motion-library/thumbs/jog_slow.webp" alt="" loading="lazy" decoding="async"></button>
+        <button class="mc-thumb" type="button" data-clip="wave" data-name="Wave" data-spec="gesture · 10 s · 50 fps" data-thumb="/motion-library/thumbs/wave.webp" aria-pressed="false" aria-label="Preview Wave"><img src="/motion-library/thumbs/wave.webp" alt="" loading="lazy" decoding="async"></button>
+        <button class="mc-thumb" type="button" data-clip="tai_chi" data-name="Tai chi form" data-spec="form · 10 s · 50 fps" data-thumb="/motion-library/thumbs/tai_chi.webp" aria-pressed="false" aria-label="Preview Tai chi form"><img src="/motion-library/thumbs/tai_chi.webp" alt="" loading="lazy" decoding="async"></button>
+        <button class="mc-thumb" type="button" data-clip="crawl" data-name="Low crawl" data-spec="locomotion · 10 s · 50 fps" data-thumb="/motion-library/thumbs/crawl.webp" aria-pressed="false" aria-label="Preview Low crawl"><img src="/motion-library/thumbs/crawl.webp" alt="" loading="lazy" decoding="async"></button>
+        <button class="mc-thumb" type="button" data-clip="prone_to_stand" data-name="Prone to stand" data-spec="daily · 9.98 s · 50 fps" data-thumb="/motion-library/thumbs/prone_to_stand.webp" aria-pressed="false" aria-label="Preview Prone to stand"><img src="/motion-library/thumbs/prone_to_stand.webp" alt="" loading="lazy" decoding="async"></button>
+      </div>
+      <p class="mc-stage-note">Pick a clip to preview it here; the frame opens it in the 3D viewer.</p>
+    </div>
+  </div>
+  <div class="mc-map">
+    <div class="mc-map-head">
+      <h3 class="mc-map-title">Which set applies to which machine</h3>
+      <p class="mc-map-note">Same library, mapped to the body that has to perform it.</p>
+    </div>
+    <div class="mc-rows">
+      <div class="mc-row">
+        <div><div class="mc-row-class">Bipedal humanoids</div><div class="mc-row-count">6 clips · 10 machines</div></div>
+        <div class="mc-clips"><a class="mc-clip" href="/motion-library/?clip=wave">Wave</a><a class="mc-clip" href="/motion-library/?clip=tai_chi">Tai chi form</a><a class="mc-clip" href="/motion-library/?clip=jog_slow">Slow jog</a><a class="mc-clip" href="/motion-library/?clip=stair_climb">Stair climb</a><a class="mc-clip" href="/motion-library/?clip=crawl">Low crawl</a><a class="mc-clip" href="/motion-library/?clip=prone_to_stand">Prone to stand</a></div>
+        <div class="mc-models"><a class="mc-model" href="/products/pndbotics-adam.html">ADAM SP</a><a class="mc-model" href="/products/fourier-gr-3.html">Fourier GR-3</a><a class="mc-model" href="/products/adam-u.html">ADAM U</a><a class="mc-model" href="/products/agibot-a3.html">AGIBOT A3 Ultra</a><a class="mc-model" href="/products/agibot-x2.html">AGIBOT X2 Ultra</a><a class="mc-model" href="/products/casbot-02-edu.html">CASBOT 02 EDU</a><a class="mc-model" href="/products/casbot-4-piece-band.html">CASBOT 4 Piece Band</a><a class="mc-model" href="/products/kepler-spe-bumblebee.html">Kepler S-PE BumbleBee</a><a class="mc-model" href="/products/limx-oli.html">LimX OLI</a><a class="mc-model" href="/products/magiclab-magicbot-g1.html">MagicLab MagicBot G1</a></div>
+      </div>
+      <div class="mc-row">
+        <div><div class="mc-row-class">Wheeled humanoids</div><div class="mc-row-count">4 clips · 2 machines</div></div>
+        <div class="mc-clips"><a class="mc-clip" href="/motion-library/?clip=wave">Wave</a><a class="mc-clip" href="/motion-library/?clip=tai_chi">Tai chi form</a><a class="mc-clip" href="/motion-library/?clip=warmup">Warm-up</a><a class="mc-clip" href="/motion-library/?clip=windmill">Windmill stretch</a></div>
+        <div class="mc-models"><a class="mc-model" href="/products/unix-ai-panther.html">UniX AI Panther</a><a class="mc-model" href="/products/unix-ai-wanda.html">UniX AI Wanda 2.0</a></div>
+      </div>
+      <div class="mc-row">
+        <div><div class="mc-row-class">Quadrupeds</div><div class="mc-row-count">4 clips · 6 machines</div></div>
+        <div class="mc-clips"><a class="mc-clip" href="/motion-library/?clip=stair_climb">Stair climb</a><a class="mc-clip" href="/motion-library/?clip=crawl">Low crawl</a><a class="mc-clip" href="/motion-library/?clip=jog_slow">Slow jog</a><a class="mc-clip" href="/motion-library/?clip=sprint">Sprint</a></div>
+        <div class="mc-models"><a class="mc-model" href="/products/magiclab-magicdog-y1.html">MagicLab MagicDog Y1</a><a class="mc-model" href="/products/magiclab-magicdog.html">MagicLab MagicDog</a><a class="mc-model" href="/products/genisom-m1.html">Genisom M1</a><a class="mc-model" href="/products/genisom-l1.html">Genisom L1</a><a class="mc-model" href="/products/genisom-l1-edu.html">Genisom L1 EDU</a><a class="mc-model" href="/products/agibot-d1.html">AGIBOT D1 EDU</a></div>
+      </div>
+      <div class="mc-row">
+        <div><div class="mc-row-class">Companion humanoids</div><div class="mc-row-count">3 clips · 1 machine</div></div>
+        <div class="mc-clips"><a class="mc-clip" href="/motion-library/?clip=wave">Wave</a><a class="mc-clip" href="/motion-library/?clip=tai_chi">Tai chi form</a><a class="mc-clip" href="/motion-library/?clip=warmup">Warm-up</a></div>
+        <div class="mc-models"><a class="mc-model" href="/products/droidup-moya.html">DroidUp Moya</a></div>
+      </div>
+      <div class="mc-row">
+        <div><div class="mc-row-class">Expressive heads</div><div class="mc-row-count">2 machines · catalogue records only</div></div>
+        <div class="mc-clips"><a class="mc-clip" href="/library.html?cat=Gesture">Gesture records</a></div>
+        <div class="mc-models"><a class="mc-model" href="/products/tangible-future-xiaoling-3.html">Tangible Future Xiaoling 3.0</a><a class="mc-model" href="/products/ldtech-intelligent-head.html">LDTech Intelligent Head</a></div>
+      </div>
+      <div class="mc-row">
+        <div><div class="mc-row-class">Wheeled bases & fixed cells</div><div class="mc-row-count">4 machines · catalogue records only</div></div>
+        <div class="mc-clips"><a class="mc-clip" href="/library.html?cat=Locomotion">Locomotion records</a><a class="mc-clip" href="/library.html?cat=Logistics">Logistics records</a></div>
+        <div class="mc-models"><a class="mc-model" href="/products/isage-star-sageman.html">iSAGE STAR-SageMan</a><a class="mc-model" href="/products/gausium-phantas.html">Gausium Phantas</a><a class="mc-model" href="/products/keenon-c40-p1.html">Keenon C40-P1</a><a class="mc-model" href="/products/qisheng-d2.html">QiSheng D2</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="latest-posts" id="insights" aria-labelledby="posts-heading">
   <div class="latest-inner">
     <div class="latest-head">
@@ -5797,6 +5925,27 @@ document.querySelectorAll('.robot-card').forEach(function(card) {
       var band = document.getElementById('insights');
       if (band) band.hidden = true;
     });
+})();
+</script>
+<script>
+/* Deployment capacity — clip switcher. Swaps the preview frame and retargets
+   its link so the click always lands on the clip on screen. */
+(function () {
+  var frame = document.getElementById('mcFrame');
+  if (!frame) return;
+  var img = frame.querySelector('img');
+  var name = frame.querySelector('.mc-clip-name');
+  var spec = frame.querySelector('.mc-clip-spec');
+  var thumbs = [].slice.call(document.querySelectorAll('.mc-thumb'));
+  thumbs.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      img.src = btn.dataset.thumb;
+      name.textContent = btn.dataset.name;
+      spec.textContent = btn.dataset.spec;
+      frame.href = '/motion-library/?clip=' + btn.dataset.clip;
+      thumbs.forEach(function (b) { b.setAttribute('aria-pressed', String(b === btn)); });
+    });
+  });
 })();
 </script>
 </body>

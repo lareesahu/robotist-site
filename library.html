@@ -1525,7 +1525,13 @@ window.addEventListener('resize', function () {
   renderList();
 });
 
-// boot
+// boot — honour ?q= and ?cat= / ?tag= so a link from a product page lands filtered
+(function () {
+  const p = new URLSearchParams(location.search);
+  if (p.get('q')) { state.q = p.get('q'); $('q').value = state.q; $('qClear').classList.add('on'); }
+  if (p.get('cat') && $('fCat').querySelector('option[value="' + p.get('cat') + '"]')) { state.cat = p.get('cat'); $('fCat').value = state.cat; }
+  if (p.get('tag')) { state.tag = p.get('tag'); $('fTag').value = state.tag; }
+})();
 renderList();
 renderDetail();
 requestAnimationFrame(loopFrame);

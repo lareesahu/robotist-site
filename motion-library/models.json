@@ -1,0 +1,73 @@
+{
+ "clipSets": {
+  "biped": [
+   "wave",
+   "tai_chi",
+   "jog_slow",
+   "stair_climb",
+   "crawl",
+   "prone_to_stand"
+  ],
+  "wheeled": [
+   "wave",
+   "tai_chi",
+   "warmup",
+   "windmill"
+  ],
+  "quadruped": [
+   "stair_climb",
+   "crawl",
+   "jog_slow",
+   "sprint"
+  ],
+  "companion": [
+   "wave",
+   "tai_chi",
+   "warmup"
+  ]
+ },
+ "labels": {
+  "biped": "Bipedal humanoids",
+  "wheeled": "Wheeled humanoids",
+  "quadruped": "Quadrupeds",
+  "companion": "Companion humanoids",
+  "head": "Expressive heads",
+  "base": "Wheeled bases & fixed cells"
+ },
+ "recordCats": {
+  "head": [
+   "Gesture"
+  ],
+  "base": [
+   "Locomotion",
+   "Logistics"
+  ]
+ },
+ "models": {
+  "pndbotics-adam": "biped",
+  "fourier-gr-3": "biped",
+  "adam-u": "biped",
+  "agibot-a3": "biped",
+  "agibot-x2": "biped",
+  "casbot-02-edu": "biped",
+  "casbot-4-piece-band": "biped",
+  "kepler-spe-bumblebee": "biped",
+  "limx-oli": "biped",
+  "magiclab-magicbot-g1": "biped",
+  "unix-ai-panther": "wheeled",
+  "unix-ai-wanda": "wheeled",
+  "magiclab-magicdog-y1": "quadruped",
+  "magiclab-magicdog": "quadruped",
+  "genisom-m1": "quadruped",
+  "genisom-l1": "quadruped",
+  "genisom-l1-edu": "quadruped",
+  "agibot-d1": "quadruped",
+  "droidup-moya": "companion",
+  "tangible-future-xiaoling-3": "head",
+  "ldtech-intelligent-head": "head",
+  "isage-star-sageman": "base",
+  "gausium-phantas": "base",
+  "keenon-c40-p1": "base",
+  "qisheng-d2": "base"
+ }
+}
