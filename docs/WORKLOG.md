@@ -249,3 +249,9 @@ Lareesa: "can you also make sure it's always SEO and GEO optimized?"
 - The Content Manager (/manage/) gained a Blog section: /manage/blog/ lists every post in blog-posts.json (drafts first) with a full-article draft preview, one-click-with-confirm publish, and unpublish.
 - Publish/unpublish flips the status in blog-posts.json and commits it (GITHUB_TOKEN); unpublish also removes the committed page so a draft can never keep a live URL. The dashboard shows a "Blog posts" collection and a "Blog drafts to review" metric.
 - Tests: catalog/test_integration.py - auth, counts, preview banner and noindex, publish/unpublish round-trip.
+
+## 2026-11-05 - Blog strip can no longer render as an empty band
+- index.html `#insights` and landing.html `#blog-grid` now ship three real article cards in the HTML, inside `<!--LATEST-POSTS:START-->…<!--LATEST-POSTS:END-->`. Before this they were empty containers filled only by `fetch('/blog-posts.json')`, so any blocked, slow or empty index left a heading over blank space.
+- The script still refreshes the row when the index loads, but it only replaces the cards when it produced at least one (drafts and pricing pieces stay filtered out), and on failure it leaves the server-rendered cards alone. With no cards at all the band hides itself instead of showing as empty.
+- Deployed from this repo (push to main -> robotist-web static). Commit 61a03c8, verified on https://robotist.com.au/ and https://robotist.com.au/landing.html with `/blog-posts.json` blocked: 3 cards, covers 200, 3-column grid intact.
+- To refresh the baked cards after publishing: rebuild the region from blog-posts.json (same filter: status=published, no cost/price/budget keywords, newest 3 by date) and commit.
