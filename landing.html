@@ -363,7 +363,35 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--accent-light); 
       <a class="lp-link" href="blog.html">All articles →</a>
     </div>
     <div class="blog-grid" id="blog-grid">
-      <div class="blog-loading">Loading articles…</div>
+      <!--LATEST-POSTS:START — server-rendered so the band is never empty -->
+      <a href="/blog/european-quadruped-supply-buyers-guide.html" class="blog-card">
+        <div class="blog-card-cover"><img src="blog/covers/european-quadruped-supply-buyers-guide.jpg" alt="" loading="lazy"></div>
+        <div class="blog-card-body">
+          <div class="blog-card-category">Robotics in Business</div>
+          <h3 class="blog-card-title">Europe&#x27;s First Dutch Quadruped: What It Changes for Robot Buyers</h3>
+          <p class="blog-card-excerpt">DENA Robotics has built what it calls the first quadruped designed and built in the Netherlands, with a humanoid planned next. The milestone matters less for the machine than for what a European supply track changes for buyers.</p>
+          <div class="blog-card-meta"><span>October 15, 2026</span><span>4 min read</span></div>
+        </div>
+      </a>
+      <a href="/blog/quadruped-endurance-raibo2-marathon.html" class="blog-card">
+        <div class="blog-card-cover"><img src="blog/covers/quadruped-endurance-raibo2-marathon.jpg" alt="" loading="lazy"></div>
+        <div class="blog-card-body">
+          <div class="blog-card-category">Humanoid &amp; Mobile Robot Insights</div>
+          <h3 class="blog-card-title">What RAIBO2&#x27;s Marathon Run Means for Quadruped Endurance</h3>
+          <p class="blog-card-excerpt">A KAIST quadruped completed a full 42.195 km marathon on a single battery charge. What the result - now published in Nature - tells buyers about quadruped endurance in real deployments.</p>
+          <div class="blog-card-meta"><span>October 13, 2026</span><span>3 min read</span></div>
+        </div>
+      </a>
+      <a href="/blog/autonomous-inspection-quadrupeds-anybotics-shift.html" class="blog-card">
+        <div class="blog-card-cover"><img src="blog/covers/autonomous-inspection-quadrupeds-anybotics-shift.jpg" alt="" loading="lazy"></div>
+        <div class="blog-card-body">
+          <div class="blog-card-category">Automation Use Cases</div>
+          <h3 class="blog-card-title">Autonomous Inspection at Scale: Lessons from ANYbotics&#x27; Shift Platform</h3>
+          <p class="blog-card-excerpt">ANYbotics&#x27; Shift platform links robot fleets, inspection data and maintenance systems into one workflow. The launch signals a bigger shift: inspection robots are becoming enterprise infrastructure.</p>
+          <div class="blog-card-meta"><span>October 13, 2026</span><span>3 min read</span></div>
+        </div>
+      </a>
+      <!--LATEST-POSTS:END-->
     </div>
   </section>
 
@@ -457,6 +485,7 @@ fetch('blog-posts.json')
     const coverPath = (p) => p.coverUrl || 'blog/covers/' + p.slug + '.jpg';
     const grid = document.getElementById('blog-grid');
     const latest = posts.slice(0, 3);
+    if (!latest.length) return;   // keep the server-rendered cards
     grid.innerHTML = latest.map(p => `
       <a href="/blog/${p.slug}.html" class="blog-card">
         <div class="blog-card-cover"><img src="${coverPath(p)}" alt="" loading="lazy"></div>
@@ -470,7 +499,9 @@ fetch('blog-posts.json')
     `).join('');
   })
   .catch(() => {
-    document.getElementById('blog-grid').innerHTML = '<div class="blog-loading">Unable to load articles. Please try again.</div>';
+    const g = document.getElementById('blog-grid');
+    const band = g && g.closest('section');
+    if (band && !g.children.length) band.hidden = true;
   });
 </script>
 <!-- Analytics (privacy-friendly beacon — always active, no cookies) -->
