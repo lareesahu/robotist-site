@@ -13,9 +13,34 @@ const state = {
 };
 
 /* ── skeleton ─────────────────────────────────────────────── */
+const matBody = new THREE.MeshStandardMaterial({ color: 0xA9C6D6, roughness: 0.8, metalness: 0.03 });
+const matBodyDim = new THREE.MeshStandardMaterial({ color: 0x8FAFC4, roughness: 0.84, metalness: 0.03 });
 const matLink = new THREE.MeshStandardMaterial({ color: 0x4aa8c8, roughness: 0.45, metalness: 0.35 });
 const matLinkDim = new THREE.MeshStandardMaterial({ color: 0x2e6f8a, roughness: 0.6, metalness: 0.25 });
 const matJoint = new THREE.MeshStandardMaterial({ color: 0xa8dcef, roughness: 0.3, metalness: 0.2, emissive: 0x0d2b36 });
+
+/* The figure is assembled from body volumes — head, neck, torso, arms, legs —
+   rather than drawn as links between joints. Each volume spans one bone pair and
+   tapers from its parent end to its child end, so the silhouette reads as a body
+   at thumbnail size while the joint data stays exactly what it was. */
+const BODY = [
+  // parent bone,  child bone,   radius at parent, radius at child, depth squash
+  ['chest',      'head',       0.056, 0.044, 0.90],   // neck
+  ['chest',      'upperarm_l', 0.052, 0.050, 0.85],   // clavicle
+  ['chest',      'upperarm_r', 0.052, 0.050, 0.85],
+  ['upperarm_l', 'forearm_l',  0.048, 0.038, 0.95],
+  ['upperarm_r', 'forearm_r',  0.048, 0.038, 0.95],
+  ['forearm_l',  'hand_l',     0.038, 0.028, 0.95],
+  ['forearm_r',  'hand_r',     0.038, 0.028, 0.95],
+  ['thigh_l',    'shin_l',     0.086, 0.056, 0.95],
+  ['thigh_r',    'shin_r',     0.086, 0.056, 0.95],
+  ['shin_l',     'foot_l',     0.054, 0.040, 0.95],
+  ['shin_r',     'foot_r',     0.054, 0.040, 0.95],
+];
+const BALLS = [['upperarm_l', 0.064], ['upperarm_r', 0.064], ['thigh_l', 0.090], ['thigh_r', 0.090],
+               ['forearm_l', 0.040], ['forearm_r', 0.040], ['shin_l', 0.056], ['shin_r', 0.056],
+               ['hand_l', 0.030], ['hand_r', 0.030]];
+const TORSO_PROFILE = [[0.150, 0.00], [0.138, 0.16], [0.128, 0.34], [0.136, 0.52], [0.150, 0.72], [0.158, 0.88], [0.150, 1.00]];
 
 function buildSkeleton(clip) {
   const bones = clip.nodes.map((b) => {
@@ -31,23 +56,61 @@ function buildSkeleton(clip) {
   });
   const rootBone = bones[clip.nodes.findIndex((b) => b.p < 0)] || bones[0];
 
-  const linkGeo = new THREE.BoxGeometry(1, 1, 1);
-  const jointGeo = new THREE.SphereGeometry(1, 14, 10);
+  const byName = {};
+  bones.forEach((b, i) => { byName[clip.nodes[i].n] = b; });
+
+  // the clip's units are not metres: measure the rest pose once and size the body to it
+  rootBone.updateMatrixWorld(true);
+  const restBox = new THREE.Box3();
+  const restVec = new THREE.Vector3();
+  bones.forEach((b) => { b.getWorldPosition(restVec); restBox.expandByPoint(restVec); });
+  const restHeight = restBox.max.y - restBox.min.y;
+  const rigScale = restHeight > 0.2 ? restHeight / 1.72 : 1;
+
+  const jointGeo = new THREE.SphereGeometry(1, 12, 9);
+  const ballGeo = new THREE.SphereGeometry(1, 18, 14);
+  const boxGeo = new THREE.BoxGeometry(1, 1, 1);
   const links = [], joints = [];
 
+  const add = (entry) => { state.group3d.add(entry.mesh); links.push(entry); };
+
+  // torso: one lathed silhouette from pelvis to chest, so there is a waist
+  if (byName.hips && byName.chest) {
+    const lathe = new THREE.LatheGeometry(TORSO_PROFILE.map(([r, y]) => new THREE.Vector2(r, y)), 24);
+    add({ kind: 'torso', mesh: new THREE.Mesh(lathe, matBody), a: byName.hips, b: byName.chest });
+  }
+
+  for (const [pn, cn, rp, rc, squash] of BODY) {
+    if (!byName[pn] || !byName[cn]) continue;
+    const geo = new THREE.CylinderGeometry(rc, rp, 1, 16, 1, false);  // +Y end = child
+    add({ kind: 'limb', mesh: new THREE.Mesh(geo, matBody), a: byName[pn], b: byName[cn], squash });
+  }
+
+  for (const [bn, r] of BALLS) {
+    if (!byName[bn]) continue;
+    add({ kind: 'ball', mesh: new THREE.Mesh(ballGeo, matBody), at: byName[bn], r });
+  }
+
+  if (byName.head) {
+    add({ kind: 'head', mesh: new THREE.Mesh(ballGeo, matBody), at: byName.head });
+  }
+  if (byName.hips) {
+    add({ kind: 'pelvis', mesh: new THREE.Mesh(ballGeo, matBody), at: byName.hips });
+  }
+  for (const s of ['l', 'r']) {
+    if (byName['hand_' + s]) add({ kind: 'hand', mesh: new THREE.Mesh(boxGeo, matBodyDim), at: byName['hand_' + s] });
+    if (byName['foot_' + s] && byName['toe_' + s]) add({ kind: 'foot', mesh: new THREE.Mesh(boxGeo, matBodyDim), a: byName['foot_' + s], b: byName['toe_' + s] });
+  }
+
+  // joint pins: the same 23 joints, kept for the "joints" reading of the data
   clip.nodes.forEach((b, i) => {
-    if (b.v === false) return;  // armature root and helper empties: transform only
-    if (b.p >= 0 && clip.nodes[b.p].v !== false) {
-      const mesh = new THREE.Mesh(linkGeo, b.n.endsWith('_r') ? matLinkDim : matLink);
-      state.group3d.add(mesh);
-      links.push({ bone: bones[i], parent: bones[b.p], mesh });
-    }
+    if (b.v === false) return;
     const jm = new THREE.Mesh(jointGeo, matJoint);
     state.group3d.add(jm);
     joints.push({ bone: bones[i], mesh: jm });
   });
 
-  return { bones, rootBone, links, joints };
+  return { bones, rootBone, links, joints, rigScale };
 }
 
 const _a = new THREE.Vector3(), _b = new THREE.Vector3(), _d = new THREE.Vector3();
@@ -85,20 +148,63 @@ function samplePose(clip, t) {
 
 function updateRig() {
   if (!state.clip) return;
-  for (const { bone, parent, mesh } of state.links) {
-    parent.getWorldPosition(_a);
-    bone.getWorldPosition(_b);
+  // The clips are authored in their own units; measure the rig once so the body
+  // volumes are sized to the figure instead of to metres.
+  const S = state.rigScale || 1;
+  for (const part of state.links) {
+    const { mesh } = part;
+    if (part.kind === 'head') {
+      part.at.getWorldPosition(_a);
+      mesh.scale.set(0.089 * S, 0.104 * S, 0.096 * S);
+      mesh.position.copy(_a).addScaledVector(_up, 0.052 * S);
+      continue;
+    }
+    if (part.kind === 'pelvis') {
+      part.at.getWorldPosition(_a);
+      mesh.position.copy(_a).addScaledVector(_up, 0.02 * S);
+      mesh.scale.set(0.152 * S, 0.108 * S, 0.112 * S);
+      continue;
+    }
+    if (part.kind === 'ball') {
+      part.at.getWorldPosition(_a);
+      mesh.position.copy(_a);
+      mesh.scale.setScalar(part.r * S);
+      continue;
+    }
+    if (part.kind === 'hand') {
+      part.at.getWorldPosition(_a);
+      mesh.position.copy(_a);
+      mesh.scale.set(0.052 * S, 0.075 * S, 0.028 * S);
+      continue;
+    }
+    if (part.kind === 'torso') {
+      part.a.getWorldPosition(_a);
+      part.b.getWorldPosition(_b);
+      _d.subVectors(_b, _a);
+      mesh.position.copy(_a);
+      mesh.quaternion.setFromUnitVectors(_up, _d.clone().normalize());
+      mesh.scale.set(S, Math.max(_d.length(), 0.3), 0.64 * S);
+      continue;
+    }
+    part.a.getWorldPosition(_a);
+    part.b.getWorldPosition(_b);
     _d.subVectors(_b, _a);
     const len = Math.max(_d.length(), 0.02);
+    if (part.kind === 'foot') {
+      mesh.position.copy(_a).addScaledVector(_d.clone().normalize(), len * 0.45);
+      mesh.quaternion.setFromUnitVectors(_up, _d.clone().normalize());
+      mesh.scale.set(0.075 * S, len * 1.15, 0.048 * S);
+      continue;
+    }
     mesh.position.addVectors(_a, _b).multiplyScalar(0.5);
-    mesh.quaternion.setFromUnitVectors(_up, _d.normalize());
-    const thick = Math.min(0.055, Math.max(0.020, len * 0.20));
-    mesh.scale.set(thick, len, thick * 0.82);
+    mesh.quaternion.setFromUnitVectors(_up, _d.clone().normalize());
+    if (part.squash) mesh.scale.set(S, len, part.squash * S);
+    else { const t = Math.min(0.055, Math.max(0.020, len * 0.20)); mesh.scale.set(t, len, t * 0.82); }
   }
   for (const { bone, mesh } of state.joints) {
     bone.getWorldPosition(_a);
     mesh.position.copy(_a);
-    mesh.scale.setScalar(0.025);
+    mesh.scale.setScalar(0.021 * S);
   }
 }
 
@@ -210,8 +316,8 @@ function frameCamera() {
   // as tightly as a laptop does instead of shrinking it into the middle of the canvas.
   const fov = THREE.MathUtils.degToRad(state.camera.fov || 38);
   const aspect = state.camera.aspect || 1.82;
-  const fitY = (bh * 1.22) / (2 * Math.tan(fov / 2));
-  const fitX = (bw * 1.30) / (2 * Math.tan(fov / 2) * aspect);
+  const fitY = (bh * 1.34) / (2 * Math.tan(fov / 2));
+  const fitX = (bw * 1.40) / (2 * Math.tan(fov / 2) * aspect);
   const dist = Math.max(1.7, fitY, fitX);
   const az = 0.56;  // ~32 degrees
   state.camera.position.set(cx + Math.sin(az) * dist, cy + bh * 0.14, cz + Math.cos(az) * dist);
@@ -366,6 +472,7 @@ async function select(id) {
   state.rootBone = rig.rootBone;
   state.links = rig.links;
   state.joints = rig.joints;
+  state.rigScale = rig.rigScale;
   state.anchor = rig.bones.find((b) => /hips|pelvis/i.test(b.name)) || rig.bones[0];
   state.group3d.position.set(0, 0, 0);
   _hasHip = false;

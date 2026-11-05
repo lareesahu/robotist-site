@@ -261,3 +261,11 @@ Lareesa: "can you also make sure it's always SEO and GEO optimized?"
 - Mapping lives in `motion-library/models.json` (clip sets per body class, platform class per product slug). `tools/build_motion_blocks.py` writes the per-model block into all 25 product pages inside `<!--MOTION:START-->…<!--MOTION:END-->`; re-run it after editing the map. Biped and quadruped classes get their clip cards; heads and wheeled bases get catalogue-record links instead, because no humanoid clip applies to those bodies.
 - `library.html` now honours `?cat=` (and `?q=`, `?tag=`), so a product-page chip lands on the filtered catalogue.
 - Verified locally at 1440/768/390: no horizontal overflow, blocks align to each template's own container (1280 on standard product pages, 1052 on companion pages), thumbnails load at 368 px.
+
+## 2026-11-05 - Motion-library rig rebuilt from body parts (head, neck, torso, arms, legs)
+- The viewer no longer draws box links between joints. `viewer.js` now assembles the figure from body volumes: a lathed torso (chest to waist to pelvis), a tapered neck, tapered upper arm / forearm / thigh / shin, plus head, pelvis, hands, feet and joint balls that bridge the seams.
+- Clip units are not metres, so the body is sized from the rig's own rest height (`rigScale`) against a 1.72 m reference; without that the volumes came out at a fraction of the figure.
+- Materials are matte (roughness 0.8, metalness 0.03) instead of the old teal plastic specular.
+- All 26 thumbnails re-rendered from the same scene at 45 % of each clip, dollied out 14 % so the head never clips the frame; saved 736x480 webp, displayed 368x240.
+- Camera fit loosened (1.22/1.30 to 1.34/1.40) so clips that rise mid-motion stay inside the stage.
+- Verified locally: 28 body parts + 23 joint pins per clip, thumbs reviewed on a contact sheet, stage checked on wave and stair_climb.
