@@ -269,3 +269,5 @@ Lareesa: "can you also make sure it's always SEO and GEO optimized?"
 - All 26 thumbnails re-rendered from the same scene at 45 % of each clip, dollied out 14 % so the head never clips the frame; saved 736x480 webp, displayed 368x240.
 - Camera fit loosened (1.22/1.30 to 1.34/1.40) so clips that rise mid-motion stay inside the stage.
 - Verified locally: 28 body parts + 23 joint pins per clip, thumbs reviewed on a contact sheet, stage checked on wave and stair_climb.
+
+- Shoulder pass: a shoulder span across the two upper-arm joints, heavier clavicles (98 mm to 70 mm) and 83 mm deltoid balls, so the torso flows into both arms with no step while the raised arm stays clean. 26 thumbnails re-rendered again at 45 % of each clip.

@@ -26,8 +26,8 @@ const matJoint = new THREE.MeshStandardMaterial({ color: 0xa8dcef, roughness: 0.
 const BODY = [
   // parent bone,  child bone,   radius at parent, radius at child, depth squash
   ['chest',      'head',       0.056, 0.044, 0.90],   // neck
-  ['chest',      'upperarm_l', 0.052, 0.050, 0.85],   // clavicle
-  ['chest',      'upperarm_r', 0.052, 0.050, 0.85],
+  ['chest',      'upperarm_l', 0.098, 0.070, 0.82],   // clavicle
+  ['chest',      'upperarm_r', 0.098, 0.070, 0.82],
   ['upperarm_l', 'forearm_l',  0.048, 0.038, 0.95],
   ['upperarm_r', 'forearm_r',  0.048, 0.038, 0.95],
   ['forearm_l',  'hand_l',     0.038, 0.028, 0.95],
@@ -37,10 +37,10 @@ const BODY = [
   ['shin_l',     'foot_l',     0.054, 0.040, 0.95],
   ['shin_r',     'foot_r',     0.054, 0.040, 0.95],
 ];
-const BALLS = [['upperarm_l', 0.064], ['upperarm_r', 0.064], ['thigh_l', 0.090], ['thigh_r', 0.090],
+const BALLS = [['upperarm_l', 0.083], ['upperarm_r', 0.083], ['thigh_l', 0.090], ['thigh_r', 0.090],
                ['forearm_l', 0.040], ['forearm_r', 0.040], ['shin_l', 0.056], ['shin_r', 0.056],
                ['hand_l', 0.030], ['hand_r', 0.030]];
-const TORSO_PROFILE = [[0.150, 0.00], [0.138, 0.16], [0.128, 0.34], [0.136, 0.52], [0.150, 0.72], [0.158, 0.88], [0.150, 1.00]];
+const TORSO_PROFILE = [[0.150, 0.00], [0.138, 0.16], [0.126, 0.34], [0.136, 0.52], [0.156, 0.72], [0.172, 0.90], [0.168, 1.00]];
 
 function buildSkeleton(clip) {
   const bones = clip.nodes.map((b) => {
@@ -86,11 +86,18 @@ function buildSkeleton(clip) {
     add({ kind: 'limb', mesh: new THREE.Mesh(geo, matBody), a: byName[pn], b: byName[cn], squash });
   }
 
+  if (byName.upperarm_l && byName.upperarm_r) {
+    const barGeo = new THREE.CylinderGeometry(0.074, 0.074, 1, 18, 1, false);
+    add({ kind: 'bar', mesh: new THREE.Mesh(barGeo, matBody), a: byName.upperarm_l, b: byName.upperarm_r });
+  }
   for (const [bn, r] of BALLS) {
     if (!byName[bn]) continue;
     add({ kind: 'ball', mesh: new THREE.Mesh(ballGeo, matBody), at: byName[bn], r });
   }
 
+  if (byName.chest) {
+    add({ kind: 'ball', mesh: new THREE.Mesh(ballGeo, matBody), at: byName.chest, r: 0.083 });
+  }
   if (byName.head) {
     add({ kind: 'head', mesh: new THREE.Mesh(ballGeo, matBody), at: byName.head });
   }
@@ -175,6 +182,15 @@ function updateRig() {
       part.at.getWorldPosition(_a);
       mesh.position.copy(_a);
       mesh.scale.set(0.052 * S, 0.075 * S, 0.028 * S);
+      continue;
+    }
+    if (part.kind === 'bar') {
+      part.a.getWorldPosition(_a);
+      part.b.getWorldPosition(_b);
+      _d.subVectors(_b, _a);
+      mesh.position.addVectors(_a, _b).multiplyScalar(0.5);
+      mesh.quaternion.setFromUnitVectors(_up, _d.clone().normalize());
+      mesh.scale.set(S, _d.length(), 0.8 * S);
       continue;
     }
     if (part.kind === 'torso') {
