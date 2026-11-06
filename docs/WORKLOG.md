@@ -271,3 +271,6 @@ Lareesa: "can you also make sure it's always SEO and GEO optimized?"
 - Verified locally: 28 body parts + 23 joint pins per clip, thumbs reviewed on a contact sheet, stage checked on wave and stair_climb.
 
 - Shoulder pass: a shoulder span across the two upper-arm joints, heavier clavicles (98 mm to 70 mm) and 83 mm deltoid balls, so the torso flows into both arms with no step while the raised arm stays clean. 26 thumbnails re-rendered again at 45 % of each clip.
+
+- Same day, second pass: torso lathe is capped at both ends and now runs hips to the neck joint, so the chest reaches the shoulders with no open shell; hands and feet are ellipsoids instead of boxes; 26 thumbnails re-rendered.
+- Restored the Human motion / Robot demos switcher on `/motion-library/`: the page that serves the domain is the static copy in this repo, which never had the link that lives in the console copy (`/motion-library/robots/` is served by the console service and stayed live throughout).

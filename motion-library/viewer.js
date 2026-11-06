@@ -40,7 +40,7 @@ const BODY = [
 const BALLS = [['upperarm_l', 0.083], ['upperarm_r', 0.083], ['thigh_l', 0.090], ['thigh_r', 0.090],
                ['forearm_l', 0.040], ['forearm_r', 0.040], ['shin_l', 0.056], ['shin_r', 0.056],
                ['hand_l', 0.030], ['hand_r', 0.030]];
-const TORSO_PROFILE = [[0.150, 0.00], [0.138, 0.16], [0.126, 0.34], [0.136, 0.52], [0.156, 0.72], [0.172, 0.90], [0.168, 1.00]];
+const TORSO_PROFILE = [[0.000, 0.00], [0.148, 0.03], [0.136, 0.18], [0.124, 0.36], [0.138, 0.56], [0.160, 0.74], [0.176, 0.88], [0.150, 0.96], [0.000, 1.00]];
 
 function buildSkeleton(clip) {
   const bones = clip.nodes.map((b) => {
@@ -77,7 +77,7 @@ function buildSkeleton(clip) {
   // torso: one lathed silhouette from pelvis to chest, so there is a waist
   if (byName.hips && byName.chest) {
     const lathe = new THREE.LatheGeometry(TORSO_PROFILE.map(([r, y]) => new THREE.Vector2(r, y)), 24);
-    add({ kind: 'torso', mesh: new THREE.Mesh(lathe, matBody), a: byName.hips, b: byName.chest });
+    add({ kind: 'torso', mesh: new THREE.Mesh(lathe, matBody), a: byName.hips, b: (byName.neck || byName.chest) });
   }
 
   for (const [pn, cn, rp, rc, squash] of BODY) {
@@ -105,8 +105,8 @@ function buildSkeleton(clip) {
     add({ kind: 'pelvis', mesh: new THREE.Mesh(ballGeo, matBody), at: byName.hips });
   }
   for (const s of ['l', 'r']) {
-    if (byName['hand_' + s]) add({ kind: 'hand', mesh: new THREE.Mesh(boxGeo, matBodyDim), at: byName['hand_' + s] });
-    if (byName['foot_' + s] && byName['toe_' + s]) add({ kind: 'foot', mesh: new THREE.Mesh(boxGeo, matBodyDim), a: byName['foot_' + s], b: byName['toe_' + s] });
+    if (byName['hand_' + s]) add({ kind: 'hand', mesh: new THREE.Mesh(ballGeo, matBody), at: byName['hand_' + s] });
+    if (byName['foot_' + s] && byName['toe_' + s]) add({ kind: 'foot', mesh: new THREE.Mesh(ballGeo, matBody), a: byName['foot_' + s], b: byName['toe_' + s] });
   }
 
   // joint pins: the same 23 joints, kept for the "joints" reading of the data
@@ -180,8 +180,8 @@ function updateRig() {
     }
     if (part.kind === 'hand') {
       part.at.getWorldPosition(_a);
-      mesh.position.copy(_a);
-      mesh.scale.set(0.052 * S, 0.075 * S, 0.028 * S);
+      mesh.position.copy(_a).addScaledVector(_up, -0.018 * S);
+      mesh.scale.set(0.042 * S, 0.062 * S, 0.030 * S);
       continue;
     }
     if (part.kind === 'bar') {
@@ -207,9 +207,10 @@ function updateRig() {
     _d.subVectors(_b, _a);
     const len = Math.max(_d.length(), 0.02);
     if (part.kind === 'foot') {
-      mesh.position.copy(_a).addScaledVector(_d.clone().normalize(), len * 0.45);
+      // a soft wedge: heel thicker than toe, sole flat-ish
+      mesh.position.copy(_a).addScaledVector(_d.clone().normalize(), len * 0.42);
       mesh.quaternion.setFromUnitVectors(_up, _d.clone().normalize());
-      mesh.scale.set(0.075 * S, len * 1.15, 0.048 * S);
+      mesh.scale.set(0.062 * S, len * 1.05, 0.042 * S);
       continue;
     }
     mesh.position.addVectors(_a, _b).multiplyScalar(0.5);
