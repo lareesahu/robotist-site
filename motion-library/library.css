@@ -296,3 +296,8 @@ footer .wrap { display: flex; flex-wrap: wrap; gap: 14px; justify-content: space
 }
 .library-switch a:hover { color: var(--white); border-color: rgba(74, 168, 200, .45); }
 .library-switch a[aria-current="page"] { color: var(--white); border-color: var(--accent); background: var(--accent-glow); }
+
+.model-filter{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:0 0 10px;padding:9px 12px;border:1px solid rgba(74,168,200,.35);background:rgba(74,168,200,.08);font-size:12.5px;line-height:1.5;color:#CBDBE6}
+.model-filter span{color:#EAF2F7}
+.model-filter a{color:#A8DCEF;text-decoration:none;border-bottom:1px solid #4AA8C8}
+.model-filter a:hover{color:#fff}

@@ -19,6 +19,7 @@ CSS = """/* Motion records block (generated) */
 .motion-block .mb-head{display:flex;justify-content:space-between;align-items:baseline;gap:20px;flex-wrap:wrap;margin-bottom:22px}
 .motion-block h2{margin:8px 0 0;font-size:clamp(22px,2.4vw,32px);font-weight:500;letter-spacing:-.03em}
 .motion-block .mb-lede{margin:12px 0 0;color:#A9BACB;font-size:14px;line-height:1.7;max-width:62ch}
+.motion-block .mb-basis{margin:10px 0 0;color:#7E93A6;font-size:12.5px;line-height:1.6;max-width:62ch}
 .mb-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:26px}
 .mb-card{display:block;text-decoration:none;border:1px solid var(--line, #1E2D3D);background:#0A1420;overflow:hidden;transition:border-color .2s,transform .2s}
 .mb-card:hover{border-color:var(--accent, #4AA8C8);transform:translateY(-2px)}
@@ -39,33 +40,41 @@ def block(slug, title, wide=True):
     cls = DATA['models'].get(slug)
     if not cls:
         return None
-    set_ids = DATA['clipSets'].get(cls, [])
+    set_ids = [c for c in (DATA.get('modelClips', {}).get(slug) or DATA['clipSets'].get(cls, [])) if c in CLIPS]
+    basis = DATA.get('modelBasis', {}).get(slug, '')
+    view = f'/motion-library/?model={slug}'
+    esc = html.escape(title)
     if set_ids:
         cards = []
         for cid in set_ids:
             c = CLIPS[cid]
             cards.append(
-                f'<a class="mb-card" href="/motion-library/?clip={cid}">'
+                f'<a class="mb-card" href="/motion-library/?clip={cid}&model={slug}">'
                 f'<img src="/motion-library/thumbs/{cid}.webp" alt="{html.escape(c["name"])} — 23-joint rig" loading="lazy" decoding="async">'
                 f'<div class="mb-card-body"><div class="mb-card-name">{html.escape(c["name"])}</div>'
                 f'<div class="mb-card-spec">{c["group"]} · {c["seconds"]:g} s · {c["fps"]:g} fps</div></div></a>')
-        body = ('<p class="mb-lede">The clips this platform is tested against before delivery. '
-                'Each one opens in the library viewer on the rig that performs it.</p>'
-                '<div class="mb-grid">' + ''.join(cards) + '</div>')
+        body = ('<p class="mb-lede">Clips in the Robotist motion library that fit this body and what the '
+                'maker says it can do. Each one opens in the 3D viewer on the rig that performs it.</p>'
+                + (f'<p class="mb-basis">Why these: {html.escape(basis)}.</p>' if basis else '')
+                + '<div class="mb-grid">' + ''.join(cards) + '</div>')
+        foot = (f'{len(set_ids)} of {len(CLIPS)} library clips map to this model — '
+                f'<a href="{view}">open the library filtered to {esc}</a> · '
+                f'<a href="/motion-library/">all {len(CLIPS)} clips</a>')
     else:
-        cats = DATA['recordCats'][cls]
+        cats = DATA['recordCats'].get(cls, [])
         chips = ''.join(f'<a class="mb-chip" href="/library.html?cat={c}">{c} records</a>' for c in cats)
-        body = ('<p class="mb-lede">No humanoid motion set applies to this body. It is validated against '
-                'the licensed catalogue records for the movement it actually performs.</p>'
+        chips += '<a class="mb-chip" href="/motion-library/?clip=wave">Wave, as a gesture study</a>'
+        body = (f'<p class="mb-lede">{html.escape(basis).capitalize() if basis else "No humanoid motion set applies to this body."} '
+                'Nothing on this page is dressed up as a motion this platform performs. The nearest movement records are below.</p>'
                 f'<div class="mb-chips">{chips}</div>')
+        foot = f'<a href="/motion-library/">Browse all {len(CLIPS)} humanoid clips</a> · <a href="/library.html">searchable catalogue</a>'
     return (f'<!--MOTION:START — generated from motion-library/models.json, edit there and re-run tools/build_motion_blocks.py-->\n'
             f'<style>{CSS}</style>\n'
-            f'<section class="motion-block{" motion-block--wide" if wide else " mb-narrow"}" aria-labelledby="mb-heading"><div class="mb-inner">\n'
+            f'<section class="motion-block{" motion-block--wide" if wide else " mb-narrow"}" aria-labelledby="mb-heading" data-model="{slug}" data-class="{cls}"><div class="mb-inner">\n'
             f'<div class="mb-head"><div><p class="eyebrow">Motion library</p>'
-            f'<h2 id="mb-heading">What {html.escape(title)} is tested against</h2></div></div>\n'
+            f'<h2 id="mb-heading">{"Motions the " + esc + " can run" if set_ids else esc + ": no library clip fits this body"}</h2></div></div>\n'
             f'{body}\n'
-            f'<p class="mb-foot">Full library: 26 playable clips and 25 licensed records — '
-            f'<a href="/motion-library/">3D viewer</a> · <a href="/library.html">searchable catalogue</a></p>\n'
+            f'<p class="mb-foot">{foot}</p>\n'
             f'</div></section>\n<!--MOTION:END-->\n')
 
 changed = []

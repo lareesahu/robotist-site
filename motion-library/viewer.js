@@ -7,7 +7,7 @@ import { OrbitControls } from 'three/addons/OrbitControls.js';
 const $ = (sel) => document.querySelector(sel);
 
 const state = {
-  clips: [], rows: [], selected: null, group: 'all',
+  clips: [], rows: [], selected: null, group: 'all', modelSet: null, modelName: '',
   clip: null, bones: [], links: [], joints: [], pose: null,
   t: 0, playing: true, mode: 'links', duration: 1, rootBone: null,
 };
@@ -412,7 +412,8 @@ const GROUPS = ['all', 'locomotion', 'sport', 'combat', 'fitness', 'form', 'dail
 function renderRows() {
   const host = $('#rows');
   host.innerHTML = '';
-  const list = state.clips.filter((c) => state.group === 'all' || c.group === state.group);
+  const list = state.clips.filter((c) => (state.group === 'all' || c.group === state.group)
+    && (!state.modelSet || state.modelSet.has(c.id)));
   for (const clip of list) {
     const row = document.createElement('button');
     row.className = 'row';
@@ -558,6 +559,25 @@ async function boot() {
     return;
   }
   state.clips = index.clips;
+  // A product page can hand the viewer a model slug. Then the rail shows only the
+  // clips mapped to that platform, and the header says whose list this is.
+  const wantedModel = new URLSearchParams(location.search).get('model');
+  if (wantedModel) {
+    try {
+      const map = await (await fetch('models.json')).json();
+      const cls = map.models?.[wantedModel];
+      const ids = map.modelClips?.[wantedModel] || map.clipSets?.[cls] || [];
+      if (ids.length) {
+        state.modelSet = new Set(ids);
+        state.modelName = map.modelNames?.[wantedModel] || wantedModel.replace(/-/g, ' ');
+        const note = document.createElement('div');
+        note.className = 'model-filter';
+        note.innerHTML = '<span></span> <a href="/motion-library/">Show all clips</a>';
+        note.querySelector('span').textContent = `Showing the ${ids.length} clips mapped to ${state.modelName}`;
+        $('#chips').before(note);
+      }
+    } catch (err) { /* a missing map just means no filter */ }
+  }
   // Someone who asked the system for less motion should get a still frame and a
   // play button, not a loop they have to stop.
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) { state.playing = false; syncPlay(); }
@@ -580,7 +600,8 @@ async function boot() {
 
   renderRows();
   const wanted = new URLSearchParams(location.search).get('clip');
-  await select(state.clips.some((c) => c.id === wanted) ? wanted : state.clips[0].id);
+  const visible = state.clips.filter((c) => !state.modelSet || state.modelSet.has(c.id));
+  await select((wanted && visible.some((c) => c.id === wanted)) ? wanted : visible[0].id);
 
   $('#play').addEventListener('click', () => {
     state.playing = !state.playing;
