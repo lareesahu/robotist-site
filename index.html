@@ -2453,7 +2453,9 @@ body::after {
    LEADERSHIP SECTION — Editorial Stagger Layout
    ═══════════════════════════════════════════════ */
 .leadership {
-  padding: var(--section-pad) var(--gutter);
+  /* --lead-close: the team row ends above its own 56px padding, so the full
+     section pad here left a dead band before the at-a-glance block. */
+  padding: var(--section-pad) var(--gutter) 8px;
   background: var(--bg-0);
   border-top: 1px solid rgba(255,255,255,0.05);
   position: relative;
@@ -3815,7 +3817,7 @@ body::after {
 <link rel="stylesheet" href="/mobile-usability.css">
 <!-- geo-layer:head-css:start -->
 <style>/* geo-layer */
-#at-a-glance{background:var(--bg-1);padding:var(--section-pad) 0;border-top:1px solid rgba(74,168,200,.08)}
+#at-a-glance{background:var(--bg-1);padding:clamp(40px,4vw,48px) 0 var(--section-pad);border-top:1px solid rgba(74,168,200,.08)}
 #at-a-glance .geo-wrap{max-width:var(--container);margin:0 auto;padding:0 var(--gutter)}
 #at-a-glance .geo-eyebrow{display:inline-block;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-light);margin-bottom:14px}
 #at-a-glance h2{font-size:var(--h2-section);line-height:1.12;color:var(--white);margin:0 0 18px}
