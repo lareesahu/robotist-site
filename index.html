@@ -3935,6 +3935,17 @@ body::after {
   .robot-card .robot-info-name,
   .robot-card .robot-info-best { white-space: normal; overflow: visible; }
 }
+
+/* ── Catalogue legibility pass ─────────────────────────────────────────────
+   The product cut-outs are tall (about 1:2.5), so an 82% box cap inside a
+   padded well left each robot drawn at roughly a third of the frame width.
+   Letting the image use the well and shrinking the padding gives the machine
+   the height it needs without cropping head or feet. Small caps below 11px
+   were unreadable on a laptop screen at 100%. */
+#catalogue .robot-card-img-wrap { padding: 10px; }
+#catalogue .robot-card-img { max-width: 96%; max-height: 96%; object-fit: contain; }
+.robot-featured-badge { font-size: 10px; }
+.robot-cat-tag { font-size: 10px; }
 </style>
 </head>
 <body>
