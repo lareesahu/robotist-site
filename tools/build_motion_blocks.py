@@ -64,7 +64,10 @@ def block(slug, title, wide=True):
         cats = DATA['recordCats'].get(cls, [])
         chips = ''.join(f'<a class="mb-chip" href="/library.html?cat={c}">{c} records</a>' for c in cats)
         chips += '<a class="mb-chip" href="/motion-library/?clip=wave">Wave, as a gesture study</a>'
-        body = (f'<p class="mb-lede">{html.escape(basis).capitalize() if basis else "No humanoid motion set applies to this body."} '
+        why = (basis[0].upper() + basis[1:] + '.') if basis else 'No humanoid motion set applies to this body.'
+        if not why.endswith('.'):
+            why += '.'
+        body = (f'<p class="mb-lede">{(html.escape(why) + " ") if basis else ""}'
                 'Nothing on this page is dressed up as a motion this platform performs. The nearest movement records are below.</p>'
                 f'<div class="mb-chips">{chips}</div>')
         foot = f'<a href="/motion-library/">Browse all {len(CLIPS)} humanoid clips</a> · <a href="/library.html">searchable catalogue</a>'
