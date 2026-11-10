@@ -8,8 +8,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>Retail & Showroom Robots - Robotist | Floor Care, Delivery</title>
-<meta name="description" content="Retail robotics from Robotist. Commercial floor-care robots, stock-run assessment and supervised customer-service trials. Cleaning robots from USD 9,250." />
+<title>Retail &amp; Showroom Robots - Robotist | Floor Care, Greeters, Stock Checks</title>
+<meta name="description" content="Cleaning robots for stores, showrooms and shopping centres, plus what a customer-facing robot can and cannot do today. Catalogue prices, honest limits, a site check before you buy." />
 <meta name="keywords" content="retail cleaning robot, store robotics, autonomous floor scrubber, shop cleaning robot, Gausium Phantas, Keenon C40-P1, UniX AI Panther" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 <meta name="author" content="Robotist Pty Ltd" />
@@ -17,8 +17,8 @@
 
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.robotist.com.au/industries/retail.html" />
-<meta property="og:title" content="Retail &amp; Showroom Robots - Robotist" />
-<meta property="og:description" content="Autonomous floor care, stock runs and customer answers for retail stores." />
+<meta property="og:title" content="Retail & Showroom Robots - Robotist | Floor Care, Greeters, Stock Checks" />
+<meta property="og:description" content="Cleaning robots for stores, showrooms and shopping centres, plus what a customer-facing robot can and cannot do today. Catalogue prices, honest limits, a site check before you buy." />
 <meta property="og:image" content="https://www.robotist.com.au/robotist-og.jpg" />
 <meta property="og:site_name" content="Robotist" />
 <meta property="og:locale" content="en_AU" />
@@ -1156,14 +1156,72 @@ body h1,body h2,body h3{letter-spacing:-.025em}
   .ho-manufacturer-note{margin-left:calc(clamp(28px,5vw,72px) + 1px);margin-right:calc(clamp(28px,5vw,72px) + 1px);color:var(--grey-1)}
 }
 </style>
+<style id="site-nav-css">
+/* Site navigation — identical on every page, scoped to #mainNav so a page's own
+   .nav / .companion-nav rules cannot drift from it. */
+#mainNav{position:fixed;top:0;left:0;right:0;z-index:900;height:72px;display:flex;align-items:center;
+  justify-content:space-between;padding:0 clamp(24px,6vw,80px);transition:background .4s,border-color .4s;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif}
+#mainNav.scrolled{background:rgba(3,8,16,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(74,168,200,.08)}
+#mainNav .nav-logo{display:flex;align-items:center;text-decoration:none}
+#mainNav .nav-logo img{height:28px;width:auto;display:block}
+#mainNav .nav-links{display:flex;align-items:center;gap:40px;list-style:none;margin:0;padding:0}
+#mainNav .nav-links a{font-weight:300;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:#8FA3B5;text-decoration:none;transition:color .2s}
+#mainNav .nav-links a:hover{color:#fff}
+#mainNav .nav-actions{display:flex;align-items:center;gap:12px}
+#mainNav .nav-cta{display:inline-flex;align-items:center;justify-content:center;min-height:42px;line-height:1;
+  font-weight:500;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#03080F;background:#4AA8C8;
+  padding:0 26px;text-decoration:none;transition:background .2s,transform .15s}
+#mainNav .nav-cta--ghost{background:transparent;color:#8FA3B5;border:1px solid rgba(255,255,255,.18)}
+#mainNav .nav-cta:hover{background:#63B9D6;transform:translateY(-1px)}
+#mainNav .nav-cta--ghost:hover{color:#fff;border-color:rgba(255,255,255,.45)}
+#mainNav .nav-sub{position:relative}
+#mainNav .nav-caret{display:inline-block;width:6px;height:6px;margin-left:8px;border-right:1.5px solid currentColor;
+  border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px);opacity:.55;transition:transform .18s}
+#mainNav .nav-sub:hover .nav-caret,#mainNav .nav-sub:focus-within .nav-caret{transform:rotate(-135deg) translateY(-2px);opacity:1}
+#mainNav .nav-sub:hover .nav-sub-toggle,#mainNav .nav-sub:focus-within .nav-sub-toggle{color:#F0F4F8}
+#mainNav .nav-submenu{position:absolute;top:calc(100% + 16px);left:-18px;padding:4px 0;min-width:300px;
+  background:#03080F;border:1px solid rgba(255,255,255,.09);border-radius:0;box-shadow:0 22px 48px rgba(0,0,0,.55);
+  opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
+#mainNav .nav-sub::after{content:"";position:absolute;top:100%;left:-18px;width:300px;height:20px}
+#mainNav .nav-sub:hover .nav-submenu,#mainNav .nav-sub:focus-within .nav-submenu{opacity:1;visibility:visible;transform:none}
+#mainNav .nav-submenu a{display:block;padding:11px 18px;border-left:2px solid transparent;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:#8FA3B5;text-decoration:none}
+#mainNav .nav-submenu a span{display:block;margin-top:5px;font-size:10px;letter-spacing:.06em;text-transform:none;
+  color:rgba(143,163,181,.72);line-height:1.45}
+#mainNav .nav-submenu a:hover{color:#fff;border-left-color:#4AA8C8;background:transparent}
+#mainNav .nav-submenu a:hover span{color:rgba(234,241,247,.75)}
+#mainNav .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+#mainNav .nav-hamburger span{display:block;width:24px;height:1px;background:#8FA3B5;transition:transform .2s,opacity .2s}
+#mainNav .nav-hamburger.active span:nth-child(1){transform:rotate(45deg) translateY(6px)}
+#mainNav .nav-hamburger.active span:nth-child(2){opacity:0}
+#mainNav .nav-hamburger.active span:nth-child(3){transform:rotate(-45deg) translateY(-6px)}
+@media(max-width:900px){
+  #mainNav .nav-links{display:none;flex-direction:column}
+  #mainNav .nav-links.open{display:flex;position:absolute;top:72px;left:0;right:0;background:rgba(3,8,16,.97);
+    backdrop-filter:blur(24px);padding:18px 24px;gap:14px;z-index:400;border-bottom:1px solid rgba(74,168,200,.1)}
+  #mainNav .nav-hamburger{display:flex}
+  #mainNav .nav-submenu{position:static;opacity:1;visibility:visible;transform:none;background:transparent;
+    border:0;box-shadow:none;padding:6px 0 0 12px;min-width:0}
+  #mainNav .nav-sub::after{display:none}
+  #mainNav .nav-submenu a{padding:8px 0;font-size:14px;letter-spacing:.02em;text-transform:none;color:#A9BACB}
+  #mainNav .nav-submenu a span{display:none}
+  #mainNav .nav-links a{font-size:14px;letter-spacing:.02em;text-transform:none;color:#A9BACB;padding:6px 0}
+  #mainNav .nav-actions{gap:8px}
+  #mainNav .nav-cta{padding:0 14px;min-height:38px;font-size:10px}
+  #mainNav .nav-cta--ghost{display:none}
+}
+</style>
 </head>
 <body>
 
-<nav class="nav" id="mainNav">
-  <a href="/index.html" class="nav-logo"><img src="/images/logo.svg" alt="Robotist" style="height:clamp(24px, 3.5vw, 36px);width:auto;"></a>
-    <ul class="nav-links">
-    <li><a href="/index.html#catalogue">Catalogue</a></li>
-    <li><a href="/index.html#services">Services</a></li>
+<nav class="nav" id="mainNav" data-nav="canonical">
+  <a href="/" class="nav-logo"><img src="/images/logo.svg" alt="Robotist" style="height:28px;width:auto;" width="132" height="28"></a>
+  <ul class="nav-links">
+    <li><a href="/#catalogue">Catalogue</a></li>
+    <li><a href="/#services">Services</a></li>
     <li class="nav-sub">
       <a href="/industries/hotels.html" class="nav-sub-toggle" aria-haspopup="true" aria-expanded="false">Industries<span class="nav-caret" aria-hidden="true"></span></a>
       <div class="nav-submenu" role="menu" aria-label="Industries">
@@ -1173,16 +1231,17 @@ body h1,body h2,body h3{letter-spacing:-.025em}
         <a role="menuitem" href="/industries/retail.html">Retail &amp; showrooms<span>Floors, stock moves, customer help</span></a>
       </div>
     </li>
-
     <li><a href="/compare.html">Compare</a></li>
-    <li><a href="/blog.html">Blog</a></li> <li><a href="/about.html">About</a></li>
+    <li><a href="/motion-library/">Motion library</a></li>
+    <li><a href="/blog.html">Blog</a></li>
+    <li><a href="/about.html">About</a></li>
     <li><a href="/contact.html">Contact</a></li>
   </ul>
   <div class="nav-actions">
     <a href="/grn/" class="nav-cta nav-cta--ghost">Join us</a>
-    <a href="/contact.html" onclick="openInquiry();return false" class="nav-cta">Get Started</a>
+    <a href="/contact.html" class="nav-cta">Get Started</a>
   </div>
-  <button class="nav-hamburger" aria-label="Menu">
+  <button class="nav-hamburger" aria-label="Menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
@@ -1192,12 +1251,12 @@ body h1,body h2,body h3{letter-spacing:-.025em}
     <div class="ho-wrap">
       <div class="ho-intro">
         <p class="ho-eyebrow">Robotist / Retail &amp; showrooms</p>
-        <h1 id="hotel-title">Retail robots<br>for floors, stock<br><span>and customer help.</span></h1>
+        <h1 id="hotel-title">Retail robots<br>for stores,<br><span>showrooms and centres.</span></h1>
       </div>
       <div class="ho-hero-bottom">
-        <p class="ho-hero-lead">Shop floors, entrances and stock rooms need cleaning and restocking every day. Most of that work is the same, repeated.</p>
+        <p class="ho-hero-lead">A shopping centre floor is walked thousands of times a day. A showroom floor has to look right before the doors open.</p>
         <div class="ho-hero-bottom-right">
-          <p>We sell retail robots, check whether a machine works in your store, and put the costs, limits and who-does-what in writing before you buy. Floor cleaning is ready now. Customer-facing robots need a trial first.</p>
+          <p>We sell floor-cleaning robots for stores and centres, and we trial front-of-house robots before anyone promises a greeter. Picking, restocking and stock moves are not in the catalogue — we say that rather than pretend.</p>
           <div class="ho-actions">
             <a href="/contact.html" onclick="openInquiry();return false" class="btn-primary">Talk to us about your store ↗</a>
             <a href="#capabilities" class="ho-link">See how it works <span aria-hidden="true">↘</span></a>
@@ -1205,11 +1264,11 @@ body h1,body h2,body h3{letter-spacing:-.025em}
         </div>
       </div>
       <figure class="ho-blueprint">
-        <div class="ho-blueprint-top"><span>Example: a store floor</span><strong>Start here — the building</strong></div>
+        <div class="ho-blueprint-top"><span>Example: a retail floor</span><strong>Start here — the floor</strong></div>
         <div class="ho-map">
           <svg viewBox="0 0 1120 425" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="floor-title floor-desc">
-            <title id="floor-title">Example store floor plan, with the areas still to be checked marked</title>
-            <desc id="floor-desc">Example map of a shop floor. The dashed parts are what we still have to check on site: floor changes, customer traffic and charging access. This is an illustration, not a survey.</desc>
+            <title id="floor-title">Example retail floor plan, with the areas still to be checked marked</title>
+            <desc id="floor-desc">Example map of a retail floor. The dashed parts are what we still have to check on site: floor changes, customer traffic and charging access. This is an illustration, not a survey.</desc>
             <defs>
               <pattern id="floor-grid" width="26" height="26" patternUnits="userSpaceOnUse"><path d="M26 0H0V26" fill="none" stroke="var(--grey-3)" stroke-width=".65" opacity=".6"/></pattern>
               <marker id="floor-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 L10 5 L0 10 Z" fill="var(--accent)"/></marker>
@@ -1224,11 +1283,11 @@ body h1,body h2,body h3{letter-spacing:-.025em}
               <rect x="778" y="276" width="280" height="95" rx="2"/>
             </g>
             <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="var(--grey-1)" font-size="12" letter-spacing="2">
-              <text x="79" y="84">01 / ENTRANCE</text><text x="466" y="83">STOCKROOM</text><text x="706" y="83">SERVICE DESK</text>
-              <text x="465" y="193">MAIN AISLE</text><text x="79" y="305">02 / TILLS</text><text x="802" y="305">CHARGER</text>
+              <text x="79" y="84">01 / ENTRANCE</text><text x="466" y="83">FITTING ROOMS</text><text x="706" y="83">TILLS</text>
+              <text x="465" y="193">MAIN AISLE</text><text x="79" y="305">02 / KIDS AREA</text><text x="802" y="305">CHARGER</text>
             </g>
             <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="var(--grey-2)" font-size="12">
-              <text x="80" y="103">stone / tile</text><text x="465" y="103">floor change</text><text x="706" y="103">foot traffic</text>
+              <text x="80" y="103">polished tile</text><text x="465" y="103">floor change</text><text x="706" y="103">customer traffic</text>
               <text x="79" y="326">tile + carpet</text><text x="802" y="326">power access</text>
             </g>
             <path d="M103 213 V133 H365 V216 H519 V210 H892" fill="none" stroke="var(--accent)" stroke-width="3.6" marker-end="url(#floor-arrow)"/>
@@ -1248,7 +1307,7 @@ body h1,body h2,body h3{letter-spacing:-.025em}
             <text x="112" y="408" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif" fill="var(--grey-1)" font-size="10" letter-spacing="1.3">NOT TO SCALE</text>
           </svg>
         </div>
-        <ol class="ho-map-mobile" aria-label="Example assessment route"><li><span class="n">01</span><span><strong>Entrance</strong><span class="s">Doorway and matting — route to be checked on site</span></span></li><li><span class="n">02</span><span><strong>Tills</strong><span class="s">Peak hours — cleaning window to be agreed</span></span></li><li><span class="n">03</span><span><strong>Main aisle</strong><span class="s">Customer traffic — where staff step in agreed first</span></span></li><li><span class="n">04</span><span><strong>Service desk</strong><span class="s">Floor change at the counter — checked on site</span></span></li><li><span class="n">05</span><span><strong>Charger</strong><span class="s">Power access to be checked on site</span></span></li></ol>
+        <ol class="ho-map-mobile" aria-label="Example assessment route"><li><span class="n">01</span><span><strong>Entrance</strong><span class="s">Polished tile and mats — route to be checked on site</span></span></li><li><span class="n">02</span><span><strong>Fitting rooms</strong><span class="s">Mixed floors — cleaning hours agreed around trading</span></span></li><li><span class="n">03</span><span><strong>Main aisle</strong><span class="s">Busiest all day — night route to be agreed</span></span></li><li><span class="n">04</span><span><strong>Tills</strong><span class="s">Display stands and cabling — we agree where staff step in</span></span></li><li><span class="n">05</span><span><strong>Charger</strong><span class="s">Power access to be checked on site</span></span></li></ol>
         <figcaption class="ho-blueprint-bottom">
           <span class="ho-key"><span><i aria-hidden="true"></i>Proposed route</span><span><i class="dash" aria-hidden="true"></i>Needs checking on site</span></span>
           <span class="ho-map-note">Example diagram. Not a finished installation, and not a promise of speed or coverage.</span>
@@ -1260,80 +1319,66 @@ body h1,body h2,body h3{letter-spacing:-.025em}
   <section class="ho-section ho-tiers" id="capabilities" aria-labelledby="capabilities-title">
     <div class="ho-wrap">
       <div class="ho-heading-row">
-        <div><p class="ho-eyebrow">What you can buy today</p><h2 id="capabilities-title">What you can buy now, <strong>and what still needs checking.</strong></h2></div>
-        <p class="ho-copy">Floor cleaning robots are in our catalogue today. Stock runs between the floor and the back room need engineering for doors and lifts. Customer-facing robots need a trial before anyone promises anything.</p>
+        <div><p class="ho-eyebrow">What you can buy today</p><h2 id="capabilities-title">What you can buy now, <strong>and what needs a trial.</strong></h2></div>
+        <p class="ho-copy">Cleaning a large shop floor after hours is a purchase. A robot that talks to customers is a trial. Moving stock around is neither, yet.</p>
       </div>
-      <div class="ho-tier-list">
-        <article class="ho-tier">
+      <div class="ho-tier-list"><article class="ho-tier">
           <div class="ho-tier-label"><span class="ho-tier-num">01</span><h3 class="ho-tier-word">In catalogue.</h3></div>
-          <div class="ho-tier-text"><h3>Robot floor cleaning</h3><p>The Gausium Phantas and Keenon C40-P1 sweep, scrub and mop floors on their own. Before we recommend one, we check your floor types, routes, cleaning hours and the cleaning quality you expect.</p><span class="ho-tier-detail">In catalogue / Results measured at your property</span></div>
-        </article>
-        <article class="ho-tier">
-          <div class="ho-tier-label"><span class="ho-tier-num">02</span><h3 class="ho-tier-word">Needs checks.</h3></div>
-          <div class="ho-tier-text"><h3>Stock and replenishment runs</h3><p>Delivery robots are ordered per project. Getting one between floors depends on your elevators, your doors, your Wi-Fi and what happens when it gets stuck. Nothing is assumed until it is tested in the building.</p><span class="ho-tier-detail">Ordered per project / Building check first</span></div>
-        </article>
-        <article class="ho-tier">
-          <div class="ho-tier-label"><span class="ho-tier-num">03</span><h3 class="ho-tier-word">Trial first.</h3></div>
-          <div class="ho-tier-text"><h3>Customer questions</h3><p>A robot can answer a fixed list of questions about stock, opening hours and directions, and pass everything else to your staff. We test the accuracy, the privacy and how customers react before it is used at scale.</p><span class="ho-tier-detail">Limited scope / Staff oversight</span></div>
-        </article>
-      </div>
+          <div class="ho-tier-text"><h3>Floor care after trading</h3><p>The Gausium Phantas and Keenon C40-P1 sweep, scrub and mop on their own. Before we recommend one we check your floor types, your closing time, how the machine behaves with a customer standing in the aisle, and the finish you expect at opening.</p><span class="ho-tier-detail">In catalogue / Measured in your store</span></div>
+        </article><article class="ho-tier">
+          <div class="ho-tier-label"><span class="ho-tier-num">02</span><h3 class="ho-tier-word">Trial first.</h3></div>
+          <div class="ho-tier-text"><h3>Greeting and product questions</h3><p>A robot can answer a fixed list — opening hours, where a brand sits, whether an item is in stock — and pass everything else to your staff. We test the answers, the voice, the languages, the privacy and how customers actually react before it runs on a busy Saturday.</p><span class="ho-tier-detail">Limited scope / Staff oversight</span></div>
+        </article><article class="ho-tier">
+          <div class="ho-tier-label"><span class="ho-tier-num">03</span><h3 class="ho-tier-word">Not yet.</h3></div>
+          <div class="ho-tier-text"><h3>Picking, restocking and stock moves</h3><p>Nothing in our catalogue lifts stock off a shelf or moves a pallet to the floor. That work needs shelf-level manipulation and a link into your stock or POS system. It is an engineering project quoted per site, not a product on a price list.</p><span class="ho-tier-detail">Not in catalogue / Project only</span></div>
+        </article></div>
     </div>
   </section>
 
   <section class="ho-section ho-products" id="machines" aria-labelledby="machines-title">
     <div class="ho-wrap">
-      <div class="ho-products-head"><p class="ho-eyebrow">The machines</p><h2 id="machines-title">Three machines, <strong>three different jobs.</strong></h2><p class="ho-copy">Two industrial cleaners for floors. One service robot on wheels for trials. The job decides which machine you need, not the other way round.</p></div>
-      <div class="ho-product-grid">
-        <a class="ho-machine" href="/products/gausium-phantas.html" aria-label="Explore Gausium Phantas cleaning robot">
+      <div class="ho-products-head"><p class="ho-eyebrow">The machines</p><h2 id="machines-title">Three machines, <strong>three different jobs.</strong></h2><p class="ho-copy">Two industrial cleaners for the floor. One service robot on wheels for a greeting trial. The job picks the machine, not the other way round.</p></div>
+      <div class="ho-product-grid"><a class="ho-machine" href="/products/gausium-phantas.html" aria-label="Explore Gausium Phantas cleaning robot">
           <div class="ho-machine-visual"><span class="ho-machine-index">Machine 01 / Floor care</span><img src="/robots-cut/gausium_phantas.webp" loading="lazy" alt="Gausium Phantas commercial cleaning robot" width="420" height="380"></div>
-          <div class="ho-machine-body"><span class="ho-machine-sub">Four-in-one cleaning</span><h3 class="ho-machine-title">Gausium Phantas</h3><p>Sweeps, scrubs, vacuums and mops in one pass. Manufacturer figures: 1,180 m² cleaned per hour.</p><div class="ho-machine-bottom"><span class="ho-price"><small>Catalogue price / USD</small>$9,250</span><span class="ho-arrow">View machine ↗</span></div></div>
-        </a>
-        <a class="ho-machine" href="/products/keenon-c40-p1.html" aria-label="Explore Keenon C40-P1 cleaning robot">
+          <div class="ho-machine-body"><span class="ho-machine-sub">Four-in-one cleaning</span><h3 class="ho-machine-title">Gausium Phantas</h3><p>Sweeps, scrubs, vacuums and mops in one pass. Manufacturer figures: 1,180 m² cleaned per hour — sized for centres and large-format stores.</p><div class="ho-machine-bottom"><span class="ho-price"><small>Catalogue price / USD</small>$9,250</span><span class="ho-arrow">View machine ↗</span></div></div>
+        </a><a class="ho-machine" href="/products/keenon-c40-p1.html" aria-label="Explore Keenon C40-P1 cleaning robot">
           <div class="ho-machine-visual"><span class="ho-machine-index">Machine 02 / Floor care</span><img src="/robots-cut/keenon_c40-p1.webp" loading="lazy" alt="Keenon C40-P1 commercial cleaning robot" width="420" height="380"></div>
-          <div class="ho-machine-body"><span class="ho-machine-sub">Four-in-one cleaning</span><h3 class="ho-machine-title">Keenon C40-P1</h3><p>A commercial floor cleaner. Manufacturer figures: 1,100 m² per hour, up to 15 hours on one charge.</p><div class="ho-machine-bottom"><span class="ho-price"><small>Catalogue price / USD</small>$10,700</span><span class="ho-arrow">View machine ↗</span></div></div>
-        </a>
-      </div>
-      <a class="ho-panther" href="/products/unix-ai-panther.html" aria-label="Explore UniX AI Panther service robot">
-        <div class="ho-panther-content"><span class="ho-machine-sub">Machine 03 / Service trials</span><h3 class="ho-machine-title">UniX AI Panther</h3><p>A wheeled humanoid sold for service work in public spaces. We treat it as a trial candidate, not a proven store concierge.</p><div class="ho-panther-stats"><span>34<small>Joints</small></span><span>16 h<small>Listed runtime</small></span></div><div class="ho-machine-bottom"><span class="ho-price"><small>Catalogue price / USD</small>$55,000</span><span class="ho-arrow">View machine ↗</span></div></div>
-        <div class="ho-panther-visual"><img src="/robots-cut/unix_panther.webp" loading="lazy" alt="UniX AI Panther wheeled humanoid service robot" width="500" height="560"></div>
+          <div class="ho-machine-body"><span class="ho-machine-sub">Four-in-one cleaning</span><h3 class="ho-machine-title">Keenon C40-P1</h3><p>A commercial floor cleaner with a long shift. Manufacturer figures: 1,100 m² per hour, up to 15 hours on one charge — suits a store that cleans nightly.</p><div class="ho-machine-bottom"><span class="ho-price"><small>Catalogue price / USD</small>$10,700</span><span class="ho-arrow">View machine ↗</span></div></div>
+        </a></div>
+      <a class="ho-panther" href="/products/unix-ai-wanda.html" aria-label="Explore UniX AI Wanda 2.0 service robot">
+        <div class="ho-panther-content"><span class="ho-machine-sub">Machine 03 / Greeting trials</span><h3 class="ho-machine-title">UniX AI Wanda 2.0</h3><p>A wheeled humanoid sold for service work in public spaces: greeting, wayfinding, a scripted answer. We treat it as a trial candidate, not a proven shop assistant.</p><div class="ho-panther-stats"><span>33<small>DOF, top variant</small></span><span>8<small>DoF bionic arms</small></span></div><div class="ho-machine-bottom"><span class="ho-price"><small>Catalogue price / USD</small>$54,900</span><span class="ho-arrow">View machine ↗</span></div></div>
+        <div class="ho-panther-visual"><img src="/robots-cut/unix_wanda.webp" loading="lazy" alt="UniX AI Wanda 2.0 wheeled humanoid service robot" width="500" height="560"></div>
       </a>
-      <p class="ho-manufacturer-note">These are catalogue prices. Freight, setup, connecting it to your systems, training and support are extra. Every speed, runtime and autonomy number above is the manufacturer's specification — we have not measured these machines in a hotel.</p>
+      <p class="ho-manufacturer-note">These are catalogue prices. Freight, setup, connecting it to your systems, training and support are extra. Every speed, runtime and coverage number above is the manufacturer's specification — we have not measured these machines in a retail store.</p>
     </div>
   </section>
 
   <section class="ho-section ho-proof" id="assessment" aria-labelledby="assessment-title">
     <div class="ho-wrap">
-      <div class="ho-proof-head"><div><p class="ho-eyebrow">From demo to decision</p><h2 id="assessment-title">A demo is not <strong>a plan.</strong></h2></div><p class="ho-copy">A robot can look good in a showroom. We turn that into a written plan for your building: what it does, where, how often, how it is measured, and who is responsible.</p></div>
+      <div class="ho-proof-head"><div><p class="ho-eyebrow">From demo to decision</p><h2 id="assessment-title">A demo is not <strong>a trading day.</strong></h2></div><p class="ho-copy">A robot can look good in a showroom. We turn that into a written plan for your store: which areas, which hours, what the floor has to look like at opening, and who is responsible when it is not.</p></div>
       <div class="ho-proof-steps">
-        <article class="ho-proof-step"><span class="ho-step-no">Step 1</span><h3>Walk the building</h3><p>Floor plans, floor types, thresholds, foot traffic, shift times, power outlets and the building systems involved.</p></article>
-        <article class="ho-proof-step"><span class="ho-step-no">Step 2</span><h3>Write the job down</h3><p>Which areas, which hours, what “clean” has to look like, what staff still do and what the robot will not do — agreed before a model is picked.</p></article>
+        <article class="ho-proof-step"><span class="ho-step-no">Step 1</span><h3>Walk the store</h3><p>Floor plans, floor types, matting, display stands, foot traffic, closing times, power outlets and the alarm and door systems involved.</p></article>
+        <article class="ho-proof-step"><span class="ho-step-no">Step 2</span><h3>Write the job down</h3><p>Which areas, which hours, what the result has to look like, what staff still do and what the robot will not do — agreed before a model is picked.</p></article>
         <article class="ho-proof-step"><span class="ho-step-no">Step 3</span><h3>Test it if practical</h3><p>One route or one task, measured against the agreed numbers, including disruption to people and how often staff had to step in.</p></article>
-        <article class="ho-proof-step"><span class="ho-step-no">Step 4</span><h3>Put it in the proposal</h3><p>The chosen system, the test results, the full cost, what your building has to provide, staff training, how we will judge the result and who fixes it.</p></article>
+        <article class="ho-proof-step"><span class="ho-step-no">Step 4</span><h3>Put it in the proposal</h3><p>The chosen system, the test results, the full cost, what your store has to provide, staff training, how we will judge the result and who fixes it.</p></article>
       </div>
-      <div class="ho-proof-criteria"><div><p class="ho-eyebrow">What a proposal should show</p><h3>Your building is the test, not the showroom.</h3></div><ul aria-label="Property evaluation criteria"><li>Cleaning quality</li><li>Routes completed</li><li>Times staff step in</li><li>Disruption to people</li><li>Running cost per clean</li><li>Who handles repairs</li></ul></div>
-      <div class="ho-evidence"><h3>We have no retail case study <strong>yet.</strong></h3><p>Robotist has not published a verified installation in a retail store. Manufacturer figures describe equipment, not results in your shop. When we have real results from a store we will publish them. Until then, we say that plainly.</p></div>
+      <div class="ho-proof-criteria"><div><p class="ho-eyebrow">What a proposal should show</p><h3>Your store is the test, not the showroom.</h3></div><ul aria-label="Site evaluation criteria"><li>Floor finish at opening</li><li>Routes completed</li><li>Times staff step in</li><li>Customer reaction</li><li>Cost per clean</li><li>Who handles repairs</li></ul></div>
+      <div class="ho-evidence"><h3>We have no retail case study <strong>yet.</strong></h3><p>Robotist has not published a verified installation in a retail store or shopping centre. Manufacturer figures describe equipment, not results on your floor. When we have real results from a site we will publish them. Until then, we say that plainly.</p></div>
     </div>
   </section>
 
   <section class="ho-section ho-faq-section" id="faq" aria-labelledby="faq-title">
     <div class="ho-wrap ho-faq-grid"><div class="ho-faq-heading"><p class="ho-eyebrow">Before you buy</p><h2 id="faq-title">Questions <strong>worth asking.</strong></h2></div>
-      <div class="ho-faq">
-        <details><summary>Can a cleaning robot work while customers are in the store?</summary><p>Usually yes, depending on the layout and how the machine behaves. Cleaning before opening is easier to plan. A site check looks at customer traffic, the route, and how the robot reacts when someone steps in front of it.</p></details>
-        <details><summary>Which floor types can it clean?</summary><p>It depends on the machine and the cleaning mode. Tile, stone, vinyl, carpet, thresholds, ramps and level changes are checked against the manufacturer's specification, and tested at your property where possible.</p></details>
-        <details><summary>Can the robot work with our elevators and doors?</summary><p>Cleaning one floor needs no elevator or door work. Moving between floors is different: it needs elevator control, door access and network access, which we quote separately. Nothing is assumed until it is checked.</p></details>
-        <details><summary>Will it replace store staff?</summary><p>A robot takes over defined, repetitive floor cleaning. Whether that reduces hours depends on the coverage, the quality and how often staff still have to step in. We measure it instead of promising it.</p></details>
-        <details><summary>What does it cost in total?</summary><p>Hardware prices are listed above. Freight, consumables, installation, integration, support and staff time depend on your site. A proposal separates the one-time costs from the running costs.</p></details>
-        <details><summary>Can we try a robot before buying?</summary><p>Yes. We start with a review of your property and agree what will be measured. A trial is included when it is practical and agreed in scope, and the results go into the proposal.</p></details>
-      </div>
+      <div class="ho-faq"><details><summary>Can it clean while the store is open?</summary><p>Sometimes, depending on the layout and the machine. Cleaning after closing is easier to plan and easier to measure. A site check looks at customer traffic, the route and how the robot reacts when someone steps in front of it.</p></details><details><summary>Will it mark a polished or sealed floor?</summary><p>That depends on the machine, the pad and the cleaning agent. Polished concrete, sealed tile and vinyl are checked against the manufacturer's specification and, where practical, tested on a patch of your own floor before a schedule is agreed.</p></details><details><summary>How does it cope with displays and stock on the floor?</summary><p>The store is mapped first, and displays that move often are agreed as no-go zones or rescanned as part of the route. A store that rearranges weekly needs that routine built in, not assumed.</p></details><details><summary>Can a robot greet customers and answer questions?</summary><p>A fixed script, yes: hours, directions, a stock lookup if your system allows it. Anything outside the script goes to a person. We trial it at your store and measure the answers before it runs unsupervised.</p></details><details><summary>Does it connect to our POS or stock system?</summary><p>Only if that integration is scoped and quoted. None of the machines above ship with a link into a retail POS or stock system. We will tell you what is possible rather than assume it.</p></details><details><summary>Can we try one before buying?</summary><p>Yes. We start with a review of your store and agree what will be measured. A trial is included when it is practical and agreed in scope, and the results go into the proposal.</p></details></div>
     </div>
   </section>
 
   <section class="ho-decision" aria-labelledby="decision-title">
-    <div class="ho-wrap ho-decision-inner"><div><p class="ho-eyebrow">The next step</p><h2 id="decision-title">Start with <strong>your building.</strong></h2></div><div class="ho-decision-aside"><p>Tell us which tasks repeat, on which floors, and during which hours. We will tell you what the first site check covers, what your building needs, and what we still have to check.</p><a href="/contact.html" onclick="openInquiry();return false" class="btn-primary">Talk to us about your store ↗</a></div></div>
+    <div class="ho-wrap ho-decision-inner"><div><p class="ho-eyebrow">The next step</p><h2 id="decision-title">Start with <strong>your floor.</strong></h2></div><div class="ho-decision-aside"><p>Tell us the floor area, the closing time and what the store has to look like at opening. We will tell you what the first site check covers, what your store needs, and what we still have to check.</p><a href="/contact.html" onclick="openInquiry();return false" class="btn-primary">Talk to us about your store ↗</a></div></div>
   </section>
 </main>
 
-<footer class="footer">
+  <footer class="footer">
   <div class="footer-inner">
     <div>
       <span class="footer-logo">Robotist</span>
@@ -1452,5 +1497,24 @@ if (hamburger) {
 </div>
 
 <script src="/assets/form-workflow.js"></script>
+<script id="site-nav-js">
+(function () {
+  var nav = document.getElementById('mainNav');
+  if (!nav) return;
+  var links = nav.querySelector('.nav-links');
+  var burger = nav.querySelector('.nav-hamburger');
+  var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 60); };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  if (burger) {
+    burger.addEventListener('click', function (e) {
+      e.preventDefault();
+      var open = links.classList.toggle('open');
+      burger.classList.toggle('active', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+})();
+</script>
 </body>
 </html>

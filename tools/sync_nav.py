@@ -35,6 +35,7 @@ NAV_HTML = '''<nav class="nav" id="mainNav" data-nav="canonical">
       </div>
     </li>
     <li><a href="/compare.html">Compare</a></li>
+    <li><a href="/motion-library/">Motion library</a></li>
     <li><a href="/blog.html">Blog</a></li>
     <li><a href="/about.html">About</a></li>
     <li><a href="/contact.html">Contact</a></li>
@@ -75,7 +76,7 @@ NAV_CSS = '''<style id="site-nav-css">
 #mainNav .nav-sub:hover .nav-caret,#mainNav .nav-sub:focus-within .nav-caret{transform:rotate(-135deg) translateY(-2px);opacity:1}
 #mainNav .nav-sub:hover .nav-sub-toggle,#mainNav .nav-sub:focus-within .nav-sub-toggle{color:#F0F4F8}
 #mainNav .nav-submenu{position:absolute;top:calc(100% + 16px);left:-18px;padding:4px 0;min-width:300px;
-  background:#03080F;border:1px solid rgba(255,255,255,.09);box-shadow:0 22px 48px rgba(0,0,0,.55);
+  background:#03080F;border:1px solid rgba(255,255,255,.09);border-radius:0;box-shadow:0 22px 48px rgba(0,0,0,.55);
   opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .18s,transform .18s,visibility .18s;z-index:60}
 #mainNav .nav-sub::after{content:"";position:absolute;top:100%;left:-18px;width:300px;height:20px}
 #mainNav .nav-sub:hover .nav-submenu,#mainNav .nav-sub:focus-within .nav-submenu{opacity:1;visibility:visible;transform:none}
@@ -133,12 +134,31 @@ OLD_NAV_RE = re.compile(r'<(nav|header)\b[^>]*class="[^"]*(?:nav|companion-nav)[
 def patch(page):
     src = page.read_text(encoding='utf-8')
     if MARK in src:
-        return 'already canonical'
+        if '/motion-library/' in src and '>Motion library<' in src:
+            return 'already canonical'
+        # canonical nav shipped before the viewer existed: add the item only
+        m = re.search(r'(<li><a href="/compare.html">Compare</a></li>)', src)
+        if m:
+            src = src[:m.end()] + '\n    <li><a href="/motion-library/">Motion library</a></li>' + src[m.end():]
+            page.write_text(src, encoding='utf-8')
+            return 'canonical + motion library item'
+        return 'already canonical (no compare item)'
     m = OLD_NAV_RE.search(src)
     if not m:
         return 'no nav found'
+    markup = NAV_HTML
+    if page.name == 'index.html':
+        # The home page owns the reference design: keep its own scoped styles and
+        # its own nav script (which also fades the Spline hero), only bring the
+        # menu items in line so the site reads as one navigation.
+        markup = markup.replace(
+            '<a href="/contact.html" class="nav-cta">Get Started</a>',
+            '<a href="/contact.html" onclick="openInquiry();return false" class="nav-cta">Get Started</a>')
+        src = src[:m.start()] + markup + src[m.end():]
+        page.write_text(src, encoding='utf-8')
+        return 'nav replaced (home, own css/js kept)'
     fixed = 'position:fixed' in src[:m.end()] or 'position: fixed' in src[:m.end()]
-    src = src[:m.start()] + NAV_HTML + src[m.end():]
+    src = src[:m.start()] + markup + src[m.end():]
     if 'id="site-nav-css"' not in src:
         src = src.replace('</head>', NAV_CSS + '\n</head>', 1)
     if not fixed:
@@ -151,12 +171,21 @@ def patch(page):
     return 'nav replaced' + ('' if fixed else ' + offset')
 
 
+SITE_PAGES = [
+    'index.html', 'about.html', 'compare.html', 'contact.html', 'cookies.html',
+    'faq.html', 'terms.html', '404.html', 'library.html', 'blog.html',
+    'blog-post.html', 'motion-library/index.html',
+    *sorted(p.name for p in (ROOT / 'blog').glob('*.html')),
+    *['industries/' + p.name for p in sorted((ROOT / 'industries').glob('*.html'))],
+    *sorted(p.name for p in (ROOT / 'reviews').glob('*.html')),
+]
+
+
 if __name__ == '__main__':
     args = [a for a in sys.argv[1:] if not a.startswith('--')]
     dry = '--dry-run' in sys.argv
     targets = [ROOT / a for a in args] if args else [
-        ROOT / 'blog.html', ROOT / 'library.html',
-        *sorted((ROOT / 'products').glob('*.html')),
+        ROOT / a for a in SITE_PAGES
     ]
     for page in targets:
         if not page.exists():
